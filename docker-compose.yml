@@ -1,0 +1,55 @@
+version: "3.7"
+services:
+  api:
+    container_name: z1_api
+    build: 
+      context: .
+    restart: "no"
+    expose: 
+      - 8000
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+    working_dir: /dist/
+    volumes:
+      - ./src:/dist/src
+    command: npm run dev
+    networks:
+      - default
+    depends_on: 
+      - db
+
+  nginx:
+    container_name: z1_nginx
+    image: nginx
+    restart: "no"
+    ports: 
+      - 80:80
+    networks:
+      - default
+    build:
+      context: ./nginx
+    depends_on: 
+      - api
+
+  db:
+    container_name: z1_db
+    image: postgres:11.4
+    restart: "no"
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - default
+
+volumes:
+  db-data:
+    name: z1-db-data
