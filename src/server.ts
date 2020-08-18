@@ -1,9 +1,14 @@
 import express from 'express';
-// import { ApolloServer } from 'apollo-server-express';
 import session from 'express-session';
-import { v4 as geenuuid } from 'uuid'
+import { v4 as geenuuid } from 'uuid';
+import { db } from './db/config';
+import { ApolloServer, makeExecutableSchema, gql } from 'apollo-server-express';
+
+import typeDefs from './gql/typeDefs'
+
 const app = express();
-import { db } from './db/config'
+const PgSession = require('connect-pg-simple')(session);
+
 
 app.use(session({
   name: "sessid",
@@ -13,22 +18,58 @@ app.use(session({
   secret: process.env.SECRET_KEY,
   resave: false,
   proxy: true,
-  saveUninitialized: false,
+  saveUninitialized: true,
   cookie: {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     maxAge: 30 * 24 * 60 * 60 * 1000, //30 days
   },
-  // store: new PgSession({
-  //   tableName: `${dbPrefix}session`
-  // })
+  store: new PgSession({
+    tableName: `sessions`,
+    conString: `postgres://postgres:psql@db:5432/z1lms`
+
+  })
 }))
 
 app.get('/', (req, res) => {
   db().raw('select 1').then( result => {
-    res.send("Hello world!!")
+    res.send("Hello world!!!")
   })
 })
+
+const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers: {
+    Query:{
+      lesson: () => "Hello world",
+      level: () => "Hello world"
+    }
+  }
+})
+
+const server = new ApolloServer({
+  schema,
+  // resolvers,
+  playground: process.env.NODE_ENV === 'production' ? false : { 
+    settings:{
+      'request.credentials': 'include',
+    }
+  },
+  context: async ({ req,res }) => {
+    return {
+      req,
+      res
+      // models,
+      // currentUser: await getCurrentUser(req),
+      // loaders: getLoaders(),
+    }
+  }
+});
+
+const url = process.env.APP_URL || 'http://localhost';
+const path = process.env.API_PATH || '/gql';
+
+server.applyMiddleware({ app, path: path}); // cors: corsOptions });
 
 app.listen(3001, () => {
   console.log("Server listening on localhost:3001")
