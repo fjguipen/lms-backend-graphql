@@ -1,3 +1,4 @@
+require('dotenv').config()
 import Knex from 'knex'
 
 export const config = {

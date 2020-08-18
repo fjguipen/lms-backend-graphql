@@ -89,7 +89,7 @@ db().schema.raw(`
     FOREIGN KEY(question_id) REFERENCES questions(id) ON DELETE CASCADE
   );
 
-  CREATE FUNCTION max_correct_options_allowed() 
+  CREATE OR REPLACE FUNCTION max_correct_options_allowed() 
   RETURNS trigger AS $max_correct_options_allowed$
   DECLARE 
     type  VARCHAR(45);
@@ -112,6 +112,7 @@ db().schema.raw(`
   END;
   $max_correct_options_allowed$ LANGUAGE plpgsql;
 
+  DROP TRIGGER IF EXISTS option_insert_or_update ON options;
   CREATE TRIGGER option_insert_or_update 
   BEFORE INSERT OR UPDATE
   ON options
@@ -150,5 +151,11 @@ db().schema.raw(`
     ADD CONSTRAINT "sessions_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
   
   CREATE INDEX "IDX_session_expire" ON "sessions" ("expire");
-`).then( result => console.log("DB initialziation done"))
-.catch(err => console.log(err))
+`).then( result => {
+  console.log("DB initialziation done")
+  process.exit()
+})
+.catch(err => {
+  console.log(err.message)
+  process.exit()
+})

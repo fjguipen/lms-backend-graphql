@@ -1,8 +1,7 @@
 import express from 'express';
 import session from 'express-session';
 import { v4 as geenuuid } from 'uuid';
-import { db } from './db/config';
-import { ApolloServer, makeExecutableSchema, gql } from 'apollo-server-express';
+import { ApolloServer, makeExecutableSchema } from 'apollo-server-express';
 
 import typeDefs from './gql/typeDefs';
 import resolvers from './gql/resolvers';

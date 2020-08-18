@@ -1,9 +1,8 @@
 version: "3.7"
 services:
   api:
+    image: node:12-alpine
     container_name: z1_api
-    build: 
-      context: .
     restart: "no"
     expose: 
       - 8000
@@ -12,11 +11,29 @@ services:
       - DB_NAME=${DB_NAME}
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
-      - DB_HOST=${DB_HOST}
+      - DB_HOST=db
     working_dir: /dist/
     volumes:
-      - ./src:/dist/src
+      - .:/dist
     command: npm run dev
+    networks:
+      - default
+    depends_on: 
+      - db
+
+  db-tools:
+    image: node:12-alpine
+    container_name: z1_db-tools
+    restart: "no"
+    volumes:
+      - .:/dist
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=db
+    working_dir: /dist/
     networks:
       - default
     depends_on: 
@@ -49,7 +66,12 @@ services:
       - 5432:5432
     networks:
       - default
+      
 
 volumes:
   db-data:
     name: z1-db-data
+
+networks:
+  default:
+    name: 'z1-network'
