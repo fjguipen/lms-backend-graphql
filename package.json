@@ -6,6 +6,7 @@
   "scripts": {
     "dc:up": "docker-compose up --force-recreate -d",
     "dc:logs": "docker-compose logs -f",
+    "db:init": "docker-compose exec -d api node ./build/db/scripts/initDB.js",
     "clean-deps": "rm -r ./node_modules",
     "clean": "rm -rf ./build/*",
     "start": "node build/src/server.js",

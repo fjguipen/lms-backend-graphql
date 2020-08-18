@@ -4,7 +4,8 @@ import { v4 as geenuuid } from 'uuid';
 import { db } from './db/config';
 import { ApolloServer, makeExecutableSchema, gql } from 'apollo-server-express';
 
-import typeDefs from './gql/typeDefs'
+import typeDefs from './gql/typeDefs';
+import resolvers from './gql/resolvers';
 
 const app = express();
 const PgSession = require('connect-pg-simple')(session);
@@ -32,24 +33,17 @@ app.use(session({
 }))
 
 app.get('/', (req, res) => {
-  db().raw('select 1').then( result => {
-    res.send("Hello world!!!")
-  })
-})
-
-const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers: {
-    Query:{
-      lesson: () => "Hello world",
-      level: () => "Hello world"
-    }
-  }
+  // db().raw('select 1').then( result => {
+  //   res.send("")
+  // })
+  return res.redirect('/gql')
 })
 
 const server = new ApolloServer({
-  schema,
-  // resolvers,
+  schema: makeExecutableSchema({
+    typeDefs,
+    resolvers
+  }),
   playground: process.env.NODE_ENV === 'production' ? false : { 
     settings:{
       'request.credentials': 'include',
