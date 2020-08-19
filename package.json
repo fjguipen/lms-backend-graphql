@@ -8,6 +8,8 @@
     "dc:recreate": "docker-compose up -d --force-recreate",
     "dc:logs": "docker-compose logs -f",
     "db:init": "node ./build/db/scripts/initDB.js",
+    "db-tools:build": "docker build -f db-tools/Dockerfile . -t db-tools:latest",
+    "db-tools:init": "docker run --network=z1-default --env-file=.env db-tools:latest npm run db:init",
     "clean-deps": "rm -r ./node_modules",
     "clean": "rm -rf ./build/*",
     "start": "node build/src/server.js",
@@ -15,7 +17,7 @@
     "serve-dev": "nodemon -r source-map-support/register --watch build ./build/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"npm run build-watch\" \"npm run serve-dev\"",
-    "deploy-dev": "npm i && npm run clean && tsc && npm run dc:up",
+    "deploy:dev": "npm run db-tools:build && npm run dc:up && npm run db-tools:init",
     "tsc": "tsc"
   },
   "author": "",
