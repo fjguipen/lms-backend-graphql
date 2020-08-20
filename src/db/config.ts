@@ -15,4 +15,5 @@ export const config = {
 }
 
 const instance: Knex = Knex(config as Knex.Config)
+
 export const db = () => instance

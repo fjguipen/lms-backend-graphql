@@ -1,7 +1,7 @@
 import { CurrentUser, MutationLoginArgs } from "../_generated/types";
 import { ResolversContext, Session } from "../types";
 
-export function logIn (_, { input: { username, password } }: MutationLoginArgs, ctx: ResolversContext): CurrentUser {
+export async function logIn (_, { input: { username, password } }: MutationLoginArgs, ctx: ResolversContext): Promise<CurrentUser> {
   
   const currentUser = {
     id: "1",
@@ -14,7 +14,7 @@ export function logIn (_, { input: { username, password } }: MutationLoginArgs, 
   return currentUser
 }
 
-export function logOut (_, __, ctx: ResolversContext): CurrentUser {
+export async function logOut (_, __, ctx: ResolversContext): Promise<CurrentUser> {
   ctx.req.session.destroy(null);
   return null
 }

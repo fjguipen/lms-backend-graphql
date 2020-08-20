@@ -7,6 +7,8 @@ import typeDefs from './gql/typeDefs';
 import resolvers from './gql/resolvers';
 import { ResolversContext } from './types';
 import { authenticatedSession } from './auth';
+import { db } from './db/config';
+import { Model } from 'objection';
 
 const app = express();
 const PgSession = require('connect-pg-simple')(session);
@@ -36,6 +38,9 @@ app.use(session({
 app.get('/', (req, res) => {
   return res.redirect('/gql')
 })
+
+//Bind knex to Obection Model class
+Model.knex(db())
 
 const server = new ApolloServer({
   schema: makeExecutableSchema({

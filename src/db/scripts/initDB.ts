@@ -21,19 +21,13 @@ db().schema.raw(`
   );
 
   CREATE TABLE IF NOT EXISTS lessons(
-    id               serial,
-    description      text,
-    PRIMARY KEY(id)
-  );
-
-  CREATE TABLE IF NOT EXISTS levels_lessons(
-    id               serial,
-    level_id         integer,
-    lesson_id        integer,
-    order_position            integer,
-    PRIMARY KEY(level_id, lesson_id),
-    FOREIGN KEY(level_id) REFERENCES levels(id) ON DELETE CASCADE,
-    FOREIGN KEY(lesson_id) REFERENCES lessons(id) ON DELETE CASCADE
+    id                serial,
+    level_id          int,
+    title             text,
+    description       text,
+    order_position    integer,         
+    PRIMARY KEY(id),
+    FOREIGN KEY(level_id) REFERENCES levels(id) ON DELETE CASCADE
   );
 
   CREATE TABLE IF NOT EXISTS contents(
@@ -62,7 +56,7 @@ db().schema.raw(`
     FOREIGN KEY(id) REFERENCES contents(id) ON DELETE CASCADE
   );
 
-  CREATE TABLE IF NOT EXISTS formatted_text(
+  CREATE TABLE IF NOT EXISTS formatted_texts(
     id              serial,
     value           text,
     PRIMARY KEY(id),

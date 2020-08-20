@@ -2,7 +2,7 @@ import { gql } from "apollo-server-core";
 
 export default gql`
   type Query {
-    user: User
+    user(id: Int): User
   }
 
   type Mutation {
@@ -11,7 +11,7 @@ export default gql`
   }
 
   type User {
-    id: ID!
+    id: Int!
     name: String
     email: String
     username: String

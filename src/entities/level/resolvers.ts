@@ -1,5 +1,12 @@
+import { getLevel, getLevels } from "./handlers/get";
+import { resolveLessons } from "./handlers/resolve";
+
 export default {
   Query:{
-    level: () => "Hello world: level"
+    level: getLevel,
+    levels: getLevels
+  },
+  Level: {
+    lessons: resolveLessons
   }
 }

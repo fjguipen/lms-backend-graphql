@@ -1,8 +1,9 @@
 import { logIn, logOut } from "../../auth";
+import { getUser } from "./handlers/get";
 
 export default {
   Query:{
-    user: () => "Hello world: user"
+    user: getUser
   },
   Mutation: {
     login: logIn,
