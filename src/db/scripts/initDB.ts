@@ -8,10 +8,9 @@ db().schema.raw(`
     surname       text,
     username      text,
     password      text,
-    rol           varchar(3),
+    rol           varchar(3)[]    DEFAULT '{}'::VARCHAR[],
     created       timestamp(3)    DEFAULT (now() at time zone 'utc'),
-    PRIMARY KEY(id),
-    CHECK(rol in ('std', 'prof'))
+    PRIMARY KEY(id)
   );
 
   CREATE TABLE IF NOT EXISTS levels(

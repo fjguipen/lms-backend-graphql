@@ -11,7 +11,7 @@ import { authenticatedSession } from './auth';
 const app = express();
 const PgSession = require('connect-pg-simple')(session);
 
-
+const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env
 app.use(session({
   name: "sessid",
   genid: function (req) {
@@ -28,7 +28,7 @@ app.use(session({
   },
   store: new PgSession({
     tableName: `sessions`,
-    conString: `postgres://postgres:psql@db:5432/z1lms`
+    conString: `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:5432/${DB_NAME}`
 
   })
 }))

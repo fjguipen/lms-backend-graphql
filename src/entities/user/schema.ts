@@ -14,7 +14,9 @@ export default gql`
     id: ID!
     name: String
     email: String
+    username: String
     password: String
+    rol: [String]
   }
 
   type CurrentUser {

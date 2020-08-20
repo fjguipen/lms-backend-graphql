@@ -32,7 +32,9 @@ export type User = {
   id: Scalars['ID'];
   name?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
+  username?: Maybe<Scalars['String']>;
   password?: Maybe<Scalars['String']>;
+  rol?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export type CurrentUser = {

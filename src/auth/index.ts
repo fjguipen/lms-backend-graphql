@@ -1,6 +1,5 @@
 import { CurrentUser, MutationLoginArgs } from "../_generated/types";
 import { ResolversContext, Session } from "../types";
-import { ContextualizedQueryLatencyStats } from "apollo-engine-reporting-protobuf";
 
 export function logIn (_, { input: { username, password } }: MutationLoginArgs, ctx: ResolversContext): CurrentUser {
   
