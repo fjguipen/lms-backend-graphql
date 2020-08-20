@@ -10,13 +10,15 @@
     "db:init": "node ./build/db/scripts/initDB.js",
     "db-tools:build": "docker build -f db-tools/Dockerfile . -t db-tools:latest",
     "db-tools:init": "docker run --network=z1-default --env-file=.env db-tools:latest npm run db:init",
+    "generate": "graphql-codegen",
+    "generate:watch": "graphql-codegen --watch",
     "clean-deps": "rm -r ./node_modules",
     "clean": "rm -rf ./build/*",
     "start": "node build/src/server.js",
     "build-watch": "tsc -w --preserveWatchOutput",
     "serve-dev": "nodemon -r source-map-support/register --watch build ./build/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"npm run build-watch\" \"npm run serve-dev\"",
+    "dev": "concurrently \"npm run generate:watch\" \"npm run build-watch\" \"npm run serve-dev\"",
     "deploy:dev": "npm run db-tools:build && npm run dc:up && npm run db-tools:init",
     "tsc": "tsc"
   },
@@ -43,13 +45,15 @@
     "uuid": "^8.3.0"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^1.17.8",
+    "@graphql-codegen/typescript": "^1.17.8",
     "@types/express": "^4.17.7",
     "@types/express-session": "^1.17.0",
     "@types/graphql": "^14.5.0",
     "concurrently": "^5.2.0",
     "nodemon": "^2.0.4",
     "source-map-support": "^0.5.19",
-    "typescript": "^3.9.7",
-    "ts-node": "^8.10.2"
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.7"
   }
 }
