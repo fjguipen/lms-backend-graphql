@@ -5,6 +5,8 @@ import { ApolloServer, makeExecutableSchema } from 'apollo-server-express';
 
 import typeDefs from './gql/typeDefs';
 import resolvers from './gql/resolvers';
+import { ResolversContext } from './types';
+import { authenticatedSession } from './auth';
 
 const app = express();
 const PgSession = require('connect-pg-simple')(session);
@@ -18,7 +20,7 @@ app.use(session({
   secret: process.env.SECRET_KEY,
   resave: false,
   proxy: true,
-  saveUninitialized: true,
+  saveUninitialized: false,
   cookie: {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
@@ -32,9 +34,6 @@ app.use(session({
 }))
 
 app.get('/', (req, res) => {
-  // db().raw('select 1').then( result => {
-  //   res.send("")
-  // })
   return res.redirect('/gql')
 })
 
@@ -48,10 +47,11 @@ const server = new ApolloServer({
       'request.credentials': 'include',
     }
   },
-  context: async ({ req,res }) => {
+  context: async ({ req, res }): Promise<ResolversContext> => {
     return {
       req,
-      res
+      res,
+      session: authenticatedSession(req)
       // models,
       // currentUser: await getCurrentUser(req),
       // loaders: getLoaders(),
