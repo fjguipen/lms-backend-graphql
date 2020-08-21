@@ -118,6 +118,14 @@ export type Question = {
   text?: Maybe<Scalars['String']>;
   type: Scalars['String'];
   order_position?: Maybe<Scalars['Int']>;
+  options?: Maybe<Array<QuestionOption>>;
+};
+
+export type QuestionOption = {
+  __typename?: 'QuestionOption';
+  id: Scalars['Int'];
+  question_id?: Maybe<Scalars['Int']>;
+  is_correct?: Maybe<Scalars['Boolean']>;
 };
 
 export type QuestionFilterInput = {

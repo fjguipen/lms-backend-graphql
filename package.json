@@ -11,7 +11,7 @@
     "db:seed": "node ./build/db/scripts/seedDB.js",
     "db-tools:build": "docker build -f db-tools/Dockerfile . -t db-tools:latest",
     "db-tools:init": "docker run --network=z1-default --env-file=.env db-tools:latest npm run db:init",
-    "db-tools:seed": "docker run --network=z1-default --env-file=.env db-tools:latest npm run db:init",
+    "db-tools:seed": "docker run --network=z1-default --env-file=.env db-tools:latest npm run db:seed",
     "generate": "graphql-codegen",
     "generate:watch": "graphql-codegen --watch",
     "clean-deps": "rm -r ./node_modules",
@@ -21,7 +21,7 @@
     "serve-dev": "nodemon -r source-map-support/register --watch build ./build/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npm run clean  && tsc && concurrently \"npm run generate:watch\" \"npm run build-watch\" \"npm run serve-dev\"",
-    "deploy:dev": "npm run db-tools:build && tsc && npm run dc:up && npm run db-tools:init",
+    "deploy:dev": "npm run db-tools:build && tsc && npm run dc:up && npm run db-tools:init && npm run db-tools:seed",
     "tsc": "tsc"
   },
   "author": "",

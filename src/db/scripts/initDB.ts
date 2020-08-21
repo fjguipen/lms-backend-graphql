@@ -77,6 +77,7 @@ db().schema.raw(`
   CREATE TABLE IF NOT EXISTS options(
     id              serial,
     question_id     integer,
+    text            text,
     is_correct      boolean,
     PRIMARY KEY(id),
     FOREIGN KEY(question_id) REFERENCES questions(id) ON DELETE CASCADE
@@ -85,18 +86,20 @@ db().schema.raw(`
   CREATE OR REPLACE FUNCTION max_correct_options_allowed() 
   RETURNS trigger AS $max_correct_options_allowed$
   DECLARE 
-    type  VARCHAR(45);
+    qType  VARCHAR(45);
   BEGIN
-    SELECT type INTO type FROM questions where id = NEW.question_id;
+    SELECT type INTO qType FROM questions where id = NEW.question_id;
 
-    IF (type = 'simple') THEN
+    IF (qType = 'simple') THEN
       PERFORM id FROM options
       WHERE is_correct = true 
       AND id <> NEW.id;
 
+      raise notice 'Value: %', FOUND;
+      
       IF FOUND THEN
         RAISE EXCEPTION
-          'There is already a correct answer for this question.
+          'There is already a correct answer for this question.\
           Simple questions can only have one correct answer';
       END IF;
     END IF;

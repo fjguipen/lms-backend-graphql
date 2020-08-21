@@ -12,6 +12,13 @@ export default gql`
     text: String
     type: String!
     order_position: Int
+    options: [QuestionOption!]
+  }
+
+  type QuestionOption {
+    id: Int!
+    question_id: Int
+    is_correct: Boolean
   }
 
   input QuestionFilterInput {

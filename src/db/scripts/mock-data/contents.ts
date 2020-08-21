@@ -16,22 +16,57 @@ export const contents = [
         {
           id: 1,
           text: 'Pregunta uno',
-          type: 'simple'
+          type: 'simple',
+          options: [{
+            id: 1,
+            text: 'Opcion 1',
+            is_correct: false
+          },{
+            id: 2,
+            text: 'Opcion 2',
+            is_correct: true
+          }],
+          order_position: 0
         },
         {
           id: 2,
           text: 'Pregunta dos',
-          type: 'multiple'
+          type: 'multiple',
+          options: [{
+            id: 3,
+            text: 'Opcion 1',
+            is_correct: false
+          },{
+            id: 4,
+            text: 'Opcion 2',
+            is_correct: true
+          },{
+            id: 5,
+            text: 'Opcion 3',
+            is_correct: true
+          }],
+          order_position: 1
         },
         {
           id: 3,
           text: 'Pregunta tres',
-          type: 'simple'
+          type: 'simple',
+          options: [{
+            id: 6,
+            text: 'Opcion 1',
+            is_correct: true
+          },{
+            id: 7,
+            text: 'Opcion 2',
+            is_correct: false
+          }],
+          order_position: 2
         },
         {
           id: 4,
           text: 'Pregunta cuatro',
-          type: 'open'
+          type: 'open',
+          order_position: 3
         }
       ]
     },
@@ -55,12 +90,32 @@ export const contents = [
         {
           id: 5,
           text: 'Pregunta cinco',
-          type: 'simple'
+          type: 'simple',
+          options: [{
+            id: 8,
+            text: 'Opcion 1',
+            is_correct: false
+          },{
+            id: 9,
+            text: 'Opcion 2',
+            is_correct: true
+          }],
+          order_position: 0
         },
         {
           id: 6,
           text: 'Pregunta seis',
-          type: 'simple'
+          type: 'simple',
+          options: [{
+            id: 1,
+            text: 'Opcion 1',
+            is_correct: true
+          },{
+            id: 2,
+            text: 'Opcion 2',
+            is_correct: false
+          }],
+          order_position: 1
         }
       ]
     },
