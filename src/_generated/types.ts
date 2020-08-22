@@ -13,6 +13,8 @@ export type Query = {
   __typename?: 'Query';
   content?: Maybe<Content>;
   contents?: Maybe<Array<Maybe<Content>>>;
+  evaluation?: Maybe<Evaluation>;
+  evaluations?: Maybe<Array<Maybe<Evaluation>>>;
   lesson?: Maybe<Lesson>;
   lessons?: Maybe<Array<Maybe<Lesson>>>;
   level?: Maybe<Level>;
@@ -30,6 +32,16 @@ export type QueryContentArgs = {
 
 export type QueryContentsArgs = {
   input?: Maybe<ContentsFilterInput>;
+};
+
+
+export type QueryEvaluationArgs = {
+  id?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryEvaluationsArgs = {
+  input?: Maybe<EvaluationFilterInput>;
 };
 
 
@@ -87,6 +99,22 @@ export type Content = {
 export type ContentsFilterInput = {
   lesson_id?: Maybe<Scalars['Int']>;
   type?: Maybe<Scalars['String']>;
+};
+
+export type Evaluation = {
+  __typename?: 'Evaluation';
+  id: Scalars['Int'];
+  user_id?: Maybe<Scalars['Int']>;
+  quizz_id?: Maybe<Scalars['Int']>;
+  mark?: Maybe<Scalars['Int']>;
+  success?: Maybe<Scalars['Boolean']>;
+  created?: Maybe<Scalars['String']>;
+};
+
+export type EvaluationFilterInput = {
+  user_id?: Maybe<Scalars['Int']>;
+  quizz_id?: Maybe<Scalars['Int']>;
+  lesson_id?: Maybe<Scalars['Int']>;
 };
 
 export type Lesson = {

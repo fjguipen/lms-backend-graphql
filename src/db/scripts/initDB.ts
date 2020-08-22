@@ -22,12 +22,22 @@ db().schema.raw(`
 
   CREATE TABLE IF NOT EXISTS lessons(
     id                serial,
-    level_id          int,
+    level_id          integer,
     title             text,
     description       text,
     order_position    integer,         
     PRIMARY KEY(id),
     FOREIGN KEY(level_id) REFERENCES levels(id) ON DELETE CASCADE
+  );
+
+  CREATE TABLE IF NOT EXISTS completed_lessons(
+    id                serial,
+    lesson_id         integer,
+    user_id           integer,
+    created         TIMESTAMP(3)    DEFAULT (now() at time zone 'utc'),
+    PRIMARY KEY(lesson_id, user_id),
+    FOREIGN KEY(lesson_id) REFERENCES lessons(id) ON DELETE CASCADE,
+    FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
   );
 
   CREATE TABLE IF NOT EXISTS contents(
@@ -118,7 +128,8 @@ db().schema.raw(`
     user_id         integer,
     quizz_id        integer,
     mark            integer,
-    success         boolean,                    
+    success         boolean,
+    created         TIMESTAMP(3)    DEFAULT (now() at time zone 'utc'),                
     PRIMARY KEY(id),
     FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE SET NULL,
     FOREIGN KEY(quizz_id) REFERENCES quizzes(id) ON DELETE SET NULL

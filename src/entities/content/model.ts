@@ -1,4 +1,4 @@
-import { Model } from 'objection';
+import { Model, QueryBuilder, OrderByDirection } from 'objection';
 import { Content, FormattedText, Quizz } from '../../_generated/types';
 
 export class FormattedTextModel extends Model implements FormattedText {
@@ -22,6 +22,7 @@ export class FormattedTextModel extends Model implements FormattedText {
 export class QuizzModel extends Model implements Quizz {
   static tableName = 'quizzes'
   id: number
+
 
   static get relationMappings() {
     const { QuestionModel } = require('../models')
@@ -50,6 +51,16 @@ export class ContentModel extends Model implements Content{
   static tableName = 'contents'
   id: number
   type: string
+  lesson_id: number
+  order_position: number
+
+  static get modifiers() {
+    return {
+      sort(builder: QueryBuilder<Model>, direction: OrderByDirection = 'ASC'){
+        builder.orderBy('order_position', direction)
+      }
+    }
+  }
 
   static get relationMappings() {
     const { LessonModel } = require('../models')

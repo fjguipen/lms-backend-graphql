@@ -1,10 +1,18 @@
-import { Model } from 'objection';
+import { Model, QueryBuilder } from 'objection';
 import { Question, QuestionOption } from '../../_generated/types';
 
 export class QuestionModel extends Model implements Question {
   static tableName = 'questions'
   id: number
   type: string
+
+  static get modifiers() {
+    return {
+      sort(builder: QueryBuilder<Model>){
+        builder.orderBy('order_position')
+      }
+    }
+  }
 
   static get relationMappings() {
     const { QuizzModel } = require('../models')

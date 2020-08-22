@@ -85,9 +85,10 @@ export function authorize<T extends ResolverFuncType>(
 
       // Check if userRoles includes any of the allowed roles
       if (
-        !userRoles ||
+        !allowedRoles.includes('*') &&
+        (!userRoles ||
         userRoles.length === 0 ||
-        !allowedRoles.some(rol => userRoles.includes(rol) || rol === "*")
+        !allowedRoles.some(rol => userRoles.includes(rol) || rol === "*"))
       ) {
         if (silent) {
           return null;
