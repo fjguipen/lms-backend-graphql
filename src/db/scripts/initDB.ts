@@ -90,17 +90,15 @@ db().schema.raw(`
   BEGIN
     SELECT type INTO qType FROM questions where id = NEW.question_id;
 
-    IF (qType = 'simple') THEN
+    IF (qType = 'simple' and NEW.is_correct = true) THEN
       PERFORM id FROM options
-      WHERE is_correct = true 
+      WHERE is_correct = true
+      AND question_id = NEW.question_id 
       AND id <> NEW.id;
-
-      raise notice 'Value: %', FOUND;
       
       IF FOUND THEN
         RAISE EXCEPTION
-          'There is already a correct answer for this question.\
-          Simple questions can only have one correct answer';
+          'There is already a correct answer for this question. Simple questions can only have one correct answer';
       END IF;
     END IF;
     

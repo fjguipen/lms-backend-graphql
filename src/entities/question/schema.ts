@@ -18,6 +18,7 @@ export default gql`
   type QuestionOption {
     id: Int!
     question_id: Int
+    text: String
     is_correct: Boolean
   }
 

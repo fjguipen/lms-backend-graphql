@@ -20,8 +20,9 @@ export default gql`
   }
 
   type CurrentUser {
-    id: ID!
+    id: Int!
     name: String
+    username: String
     email: String
   }
 

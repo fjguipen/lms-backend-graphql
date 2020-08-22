@@ -107,11 +107,11 @@ export const contents = [
           text: 'Pregunta seis',
           type: 'simple',
           options: [{
-            id: 1,
+            id: 10,
             text: 'Opcion 1',
             is_correct: true
           },{
-            id: 2,
+            id: 11,
             text: 'Opcion 2',
             is_correct: false
           }],

@@ -56,7 +56,7 @@ const server = new ApolloServer({
     return {
       req,
       res,
-      session: authenticatedSession(req)
+      session: await authenticatedSession(req)
       // models,
       // currentUser: await getCurrentUser(req),
       // loaders: getLoaders(),

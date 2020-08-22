@@ -125,6 +125,7 @@ export type QuestionOption = {
   __typename?: 'QuestionOption';
   id: Scalars['Int'];
   question_id?: Maybe<Scalars['Int']>;
+  text?: Maybe<Scalars['String']>;
   is_correct?: Maybe<Scalars['Boolean']>;
 };
 
@@ -155,8 +156,9 @@ export type User = {
 
 export type CurrentUser = {
   __typename?: 'CurrentUser';
-  id: Scalars['ID'];
+  id: Scalars['Int'];
   name?: Maybe<Scalars['String']>;
+  username?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
 };
 
