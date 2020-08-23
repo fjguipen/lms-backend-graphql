@@ -1,4 +1,4 @@
-import { Model } from "objection";
+import { Model } from 'objection';
 import {
   Content,
   FormattedText,
@@ -8,12 +8,12 @@ import {
   MutationUpdateContentArgs,
   QueryContentsArgs,
   MutationDeleteContentArgs,
-} from "../../_generated/types";
-import { sortByOrderPosition } from "../commons";
-import { ResolversContext } from "../../types";
+} from '../../_generated/types';
+import { sortByOrderPosition } from '../commons';
+import { ResolversContext } from '../../types';
 
 export class FormattedTextModel extends Model implements FormattedText {
-  static tableName = "formatted_texts";
+  static tableName = 'formatted_texts';
   id: number;
 
   static get relationMappings() {
@@ -31,11 +31,11 @@ export class FormattedTextModel extends Model implements FormattedText {
 }
 
 export class QuizzModel extends Model implements Quizz {
-  static tableName = "quizzes";
+  static tableName = 'quizzes';
   id: number;
 
   static get relationMappings() {
-    const { QuestionModel } = require("../models");
+    const { QuestionModel } = require('../models');
     return {
       content: {
         relation: Model.BelongsToOneRelation,
@@ -58,7 +58,7 @@ export class QuizzModel extends Model implements Quizz {
 }
 
 export class ContentModel extends Model implements Content {
-  static tableName = "contents";
+  static tableName = 'contents';
   id: number;
   type: string;
   lesson_id: number;
@@ -71,7 +71,7 @@ export class ContentModel extends Model implements Content {
   }
 
   static get relationMappings() {
-    const { LessonModel } = require("../models");
+    const { LessonModel } = require('../models');
 
     return {
       lesson: {
@@ -106,7 +106,7 @@ export class ContentModel extends Model implements Content {
     { input }: MutationCreateContentArgs,
     { session }: ResolversContext
   ) {
-    const content = await ContentModel.query().insert(input).returning("*");
+    const content = await ContentModel.query().insert(input).returning('*');
     return content;
   }
 
@@ -117,7 +117,7 @@ export class ContentModel extends Model implements Content {
   ) {
     const content = await ContentModel.query()
       .patch(input)
-      .where("id", input.id);
+      .where('id', input.id);
     return content;
   }
 
@@ -126,7 +126,7 @@ export class ContentModel extends Model implements Content {
     { ids }: MutationDeleteContentArgs,
     { session }: ResolversContext
   ) {
-    const content = await ContentModel.query().delete().where("id", "in", ids);
+    const content = await ContentModel.query().delete().where('id', 'in', ids);
     return content;
   }
 

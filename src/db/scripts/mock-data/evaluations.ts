@@ -1,4 +1,4 @@
-import { Evaluation } from "../../../_generated/types";
+import { Evaluation } from '../../../_generated/types';
 
 export const evaluations: Evaluation[] = [
   {
@@ -10,22 +10,22 @@ export const evaluations: Evaluation[] = [
       {
         id: 1,
         question_id: 1,
-        value: "Answer 1",
+        value: 'Answer 1',
       },
       {
         id: 2,
         question_id: 2,
-        value: "Answer 2",
+        value: 'Answer 2',
       },
       {
         id: 3,
         question_id: 3,
-        value: "Answer 3",
+        value: 'Answer 3',
       },
       {
         id: 4,
         question_id: 4,
-        value: "Answer 4",
+        value: 'Answer 4',
       },
     ],
   },
@@ -38,22 +38,22 @@ export const evaluations: Evaluation[] = [
       {
         id: 5,
         question_id: 1,
-        value: "Answer 1",
+        value: 'Answer 1',
       },
       {
         id: 6,
         question_id: 2,
-        value: "Answer 2",
+        value: 'Answer 2',
       },
       {
         id: 7,
         question_id: 3,
-        value: "Answer 3",
+        value: 'Answer 3',
       },
       {
         id: 8,
         question_id: 4,
-        value: "Answer 4",
+        value: 'Answer 4',
       },
     ],
     success: true,
@@ -67,12 +67,12 @@ export const evaluations: Evaluation[] = [
       {
         id: 9,
         question_id: 5,
-        value: "Answer 1",
+        value: 'Answer 1',
       },
       {
         id: 10,
         question_id: 6,
-        value: "Answer 2",
+        value: 'Answer 2',
       },
     ],
   },
@@ -85,22 +85,22 @@ export const evaluations: Evaluation[] = [
       {
         id: 11,
         question_id: 1,
-        value: "Answer 1",
+        value: 'Answer 1',
       },
       {
         id: 12,
         question_id: 2,
-        value: "Answer 2",
+        value: 'Answer 2',
       },
       {
         id: 13,
         question_id: 3,
-        value: "Answer 3",
+        value: 'Answer 3',
       },
       {
         id: 14,
         question_id: 4,
-        value: "Answer 4",
+        value: 'Answer 4',
       },
     ],
   },

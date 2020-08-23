@@ -1,16 +1,16 @@
-import { Model } from "objection";
-import { Answer } from "../../_generated/types";
+import { Model } from 'objection';
+import { Answer } from '../../_generated/types';
 
 export class AnswerModel extends Model implements Answer {
-  static tableName = "answers";
+  static tableName = 'answers';
   id: number;
   question_id: number;
   evaluation_id: number;
   value: string;
 
   static get relationMappings() {
-    const { QuestionModel } = require("../models");
-    const { EvaluationModel } = require("../models");
+    const { QuestionModel } = require('../models');
+    const { EvaluationModel } = require('../models');
 
     return {
       question: {

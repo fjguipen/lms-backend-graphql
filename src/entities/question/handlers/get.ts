@@ -2,8 +2,8 @@ import {
   QueryQuestionArgs,
   QueryQuestionsArgs,
   Question,
-} from "../../../_generated/types";
-import { QuestionModel } from "../model";
+} from '../../../_generated/types';
+import { QuestionModel } from '../model';
 
 export async function getQuestion(
   _,
@@ -17,7 +17,7 @@ export async function getQuestions(
   { input }: QueryQuestionsArgs
 ): Promise<Question[]> {
   return QuestionModel.query()
-    .modify("sort")
+    .modify('sort')
     .modify((query) => {
       for (let key of Object.keys(input)) {
         query.where(key, input[key]);

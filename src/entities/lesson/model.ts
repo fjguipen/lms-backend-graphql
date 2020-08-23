@@ -1,19 +1,19 @@
-import { Model } from "objection";
+import { Model } from 'objection';
 import {
   Lesson,
   QueryLessonArgs,
   QueryLessonsArgs,
-} from "../../_generated/types";
-import { sortByOrderPosition } from "../commons";
-import { ResolversContext } from "../../types";
-import { UserModel } from "../user/model";
+} from '../../_generated/types';
+import { sortByOrderPosition } from '../commons';
+import { ResolversContext } from '../../types';
+import { UserModel } from '../user/model';
 import {
   checkLessonRequirements,
   filterLessonsByRequirements,
-} from "./handlers/requirements";
+} from './handlers/requirements';
 
 export class LessonModel extends Model implements Lesson {
-  static tableName = "lessons";
+  static tableName = 'lessons';
   id: number;
   level_id: number;
   title: string;
@@ -27,7 +27,7 @@ export class LessonModel extends Model implements Lesson {
   }
 
   static get relationMappings() {
-    const { LevelModel } = require("../models");
+    const { LevelModel } = require('../models');
     return {
       level: {
         relation: Model.BelongsToOneRelation,
@@ -55,7 +55,7 @@ export class LessonModel extends Model implements Lesson {
   ): Promise<Lesson> {
     const user = await UserModel.query().findById(session.user.id);
     const lesson = await LessonModel.query().findById(id);
-    if (!["adm", "prf"].some((rol) => user.rol.includes(rol))) {
+    if (!['adm', 'prf'].some((rol) => user.rol.includes(rol))) {
       await checkLessonRequirements(user, lesson);
     }
 
@@ -70,14 +70,14 @@ export class LessonModel extends Model implements Lesson {
     const user = await UserModel.query().findById(session.user.id);
 
     const lessons = await LessonModel.query()
-      .modify("sort")
+      .modify('sort')
       .modify((query) => {
         for (let key of Object.keys(input)) {
           query.where(key, input[key]);
         }
       });
 
-    if (!["adm", "prf"].some((rol) => user.rol.includes(rol))) {
+    if (!['adm', 'prf'].some((rol) => user.rol.includes(rol))) {
       return await filterLessonsByRequirements(user, lessons);
     }
 
@@ -93,14 +93,14 @@ export class LessonModel extends Model implements Lesson {
 }
 
 export class CompletedLessonModel extends Model {
-  static tableName = "completed_lessons";
-  static idColumn = ["user_id", "lesson_id"];
+  static tableName = 'completed_lessons';
+  static idColumn = ['user_id', 'lesson_id'];
   id: number;
   user_id: number;
   lesson_id: number;
 
   static get relationMappings() {
-    const { UserModel } = require("../models");
+    const { UserModel } = require('../models');
     return {
       lesson: {
         relation: Model.BelongsToOneRelation,

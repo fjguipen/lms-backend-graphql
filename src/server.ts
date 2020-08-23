@@ -1,22 +1,22 @@
-import express from "express";
-import session from "express-session";
-import { v4 as geenuuid } from "uuid";
-import { ApolloServer, makeExecutableSchema } from "apollo-server-express";
+import express from 'express';
+import session from 'express-session';
+import { v4 as geenuuid } from 'uuid';
+import { ApolloServer, makeExecutableSchema } from 'apollo-server-express';
 
-import typeDefs from "./gql/typeDefs";
-import resolvers from "./gql/resolvers";
-import { ResolversContext } from "./types";
-import { authenticatedSession } from "./auth";
-import { db } from "./db/config";
-import { Model } from "objection";
+import typeDefs from './gql/typeDefs';
+import resolvers from './gql/resolvers';
+import { ResolversContext } from './types';
+import { authenticatedSession } from './auth';
+import { db } from './db/config';
+import { Model } from 'objection';
 
 const app = express();
-const PgSession = require("connect-pg-simple")(session);
+const PgSession = require('connect-pg-simple')(session);
 
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
 app.use(
   session({
-    name: "sessid",
+    name: 'sessid',
     genid: function (req) {
       return geenuuid();
     },
@@ -26,7 +26,7 @@ app.use(
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: process.env.NODE_ENV === 'production',
       maxAge: 30 * 24 * 60 * 60 * 1000, //30 days
     },
     store: new PgSession({
@@ -36,8 +36,8 @@ app.use(
   })
 );
 
-app.get("/", (req, res) => {
-  return res.redirect("/gql");
+app.get('/', (req, res) => {
+  return res.redirect('/gql');
 });
 
 //Bind knex to Obection Model class
@@ -49,11 +49,11 @@ const server = new ApolloServer({
     resolvers,
   }),
   playground:
-    process.env.NODE_ENV === "production"
+    process.env.NODE_ENV === 'production'
       ? false
       : {
           settings: {
-            "request.credentials": "include",
+            'request.credentials': 'include',
           },
         },
   context: async ({ req, res }): Promise<ResolversContext> => {
@@ -68,11 +68,11 @@ const server = new ApolloServer({
   },
 });
 
-const url = process.env.APP_URL || "http://localhost";
-const path = process.env.API_PATH || "/gql";
+const url = process.env.APP_URL || 'http://localhost';
+const path = process.env.API_PATH || '/gql';
 
 server.applyMiddleware({ app, path: path }); // cors: corsOptions });
 
 app.listen(3001, () => {
-  console.log("Server listening on localhost:3001");
+  console.log('Server listening on localhost:3001');
 });

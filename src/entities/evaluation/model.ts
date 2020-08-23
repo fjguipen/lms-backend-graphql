@@ -1,10 +1,10 @@
-import { Model } from "objection";
-import { Evaluation, MutationEvaluateQuizzArgs } from "../../_generated/types";
-import { ResolversContext } from "../../types";
-import { handleQuizzEvaluation } from "./handlers/evaluation";
+import { Model } from 'objection';
+import { Evaluation, MutationEvaluateQuizzArgs } from '../../_generated/types';
+import { ResolversContext } from '../../types';
+import { handleQuizzEvaluation } from './handlers/evaluation';
 
 export class EvaluationModel extends Model implements Evaluation {
-  static tableName = "evaluations";
+  static tableName = 'evaluations';
   id: number;
   user_id: number;
   quizz_id: number;
@@ -13,9 +13,9 @@ export class EvaluationModel extends Model implements Evaluation {
   created: string;
 
   static get relationMappings() {
-    const { QuizzModel } = require("../models");
-    const { UserModel } = require("../models");
-    const { AnswerModel } = require("../models");
+    const { QuizzModel } = require('../models');
+    const { UserModel } = require('../models');
+    const { AnswerModel } = require('../models');
 
     return {
       quizz: {

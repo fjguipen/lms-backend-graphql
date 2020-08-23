@@ -1,9 +1,9 @@
-import { Model } from "objection";
-import { Question, QuestionOption } from "../../_generated/types";
-import { sortByOrderPosition } from "../commons";
+import { Model } from 'objection';
+import { Question, QuestionOption } from '../../_generated/types';
+import { sortByOrderPosition } from '../commons';
 
 export class QuestionModel extends Model implements Question {
-  static tableName = "questions";
+  static tableName = 'questions';
   id: number;
   type: string;
   quizz_id: number;
@@ -17,8 +17,8 @@ export class QuestionModel extends Model implements Question {
   }
 
   static get relationMappings() {
-    const { QuizzModel } = require("../models");
-    const { AnswerModel } = require("../models");
+    const { QuizzModel } = require('../models');
+    const { AnswerModel } = require('../models');
 
     return {
       quizz: {
@@ -50,7 +50,7 @@ export class QuestionModel extends Model implements Question {
 }
 
 export class QuestionOptionModel extends Model implements QuestionOption {
-  static tableName = "options";
+  static tableName = 'options';
   id: number;
 
   static get relationMappings() {

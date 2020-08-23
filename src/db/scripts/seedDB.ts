@@ -1,16 +1,16 @@
-import { db } from "../config";
-import { users, levels, lessons } from "./mock-data";
-import { Model } from "objection";
+import { db } from '../config';
+import { users, levels, lessons } from './mock-data';
+import { Model } from 'objection';
 import {
   LessonModel,
   UserModel,
   LevelModel,
   QuestionModel,
-} from "../../entities/models";
-import { ContentModel, QuizzModel } from "../../entities/content/model";
-import { contents } from "./mock-data/contents";
-import { EvaluationModel } from "../../entities/evaluation/model";
-import { evaluations } from "./mock-data/evaluations";
+} from '../../entities/models';
+import { ContentModel, QuizzModel } from '../../entities/content/model';
+import { contents } from './mock-data/contents';
+import { EvaluationModel } from '../../entities/evaluation/model';
+import { evaluations } from './mock-data/evaluations';
 
 (async () => {
   Model.knex(db());
@@ -41,7 +41,7 @@ import { evaluations } from "./mock-data/evaluations";
       .insertGraph(contents)
       .then(async (result) => {
         const insertedQuestions = result
-          .filter((r) => r.type === "quizz")
+          .filter((r) => r.type === 'quizz')
           .flatMap((c: any) => c.quizz.questions || []).length;
         await db().raw(`SELECT setval('contents_id_seq', ${result.length})`);
         await db().raw(

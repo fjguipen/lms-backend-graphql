@@ -2,10 +2,10 @@ import {
   resolveQuizz,
   resolveFormattedText,
   resolveQuestions,
-} from "./handlers/resolve";
-import { authorize } from "../../auth";
-import { ROLES } from "../../auth/types";
-import { ContentModel } from "./model";
+} from './handlers/resolve';
+import { authorize } from '../../auth';
+import { ROLES } from '../../auth/types';
+import { ContentModel } from './model';
 
 export default {
   Query: {

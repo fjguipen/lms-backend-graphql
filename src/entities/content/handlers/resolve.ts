@@ -1,9 +1,9 @@
-import { Content, Quizz } from "../../../_generated/types";
-import { QuizzModel, FormattedTextModel } from "../model";
-import { QuestionModel } from "../../question/model";
+import { Content, Quizz } from '../../../_generated/types';
+import { QuizzModel, FormattedTextModel } from '../model';
+import { QuestionModel } from '../../question/model';
 
 export async function resolveQuizz(content: Content) {
-  if (content.type !== "quizz") {
+  if (content.type !== 'quizz') {
     return null;
   }
 
@@ -11,7 +11,7 @@ export async function resolveQuizz(content: Content) {
 }
 
 export async function resolveFormattedText(content: Content) {
-  if (content.type !== "formatted_text") {
+  if (content.type !== 'formatted_text') {
     return null;
   }
 
@@ -19,5 +19,5 @@ export async function resolveFormattedText(content: Content) {
 }
 
 export async function resolveQuestions(quizz: Quizz) {
-  return QuestionModel.query().where("quizz_id", quizz.id);
+  return QuestionModel.query().where('quizz_id', quizz.id);
 }

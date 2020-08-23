@@ -1,7 +1,7 @@
-import { getQuestions, getQuestion } from "./handlers/get";
-import { resolveOptions, resolveIsCorrectOption } from "./handlers/resolve";
-import { ROLES } from "../../auth/types";
-import { authorize } from "../../auth";
+import { getQuestions, getQuestion } from './handlers/get';
+import { resolveOptions, resolveIsCorrectOption } from './handlers/resolve';
+import { ROLES } from '../../auth/types';
+import { authorize } from '../../auth';
 
 export default {
   Query: {

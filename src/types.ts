@@ -1,4 +1,4 @@
-import { CurrentUser } from "./_generated/types";
+import { CurrentUser } from './_generated/types';
 
 export interface Session {
   user?: CurrentUser;

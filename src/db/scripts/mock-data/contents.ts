@@ -1,4 +1,4 @@
-import { FormattedText, Quizz } from "../../../_generated/types";
+import { FormattedText, Quizz } from '../../../_generated/types';
 
 interface ContentSeed {
   id: number;
@@ -12,7 +12,7 @@ interface ContentSeed {
 export const contents: ContentSeed[] = [
   {
     id: 1,
-    type: "formatted_text",
+    type: 'formatted_text',
     text: {
       value: `<p>Text</p><img src="url"/><p>Text</p>`,
     },
@@ -21,22 +21,22 @@ export const contents: ContentSeed[] = [
   },
   {
     id: 2,
-    type: "quizz",
+    type: 'quizz',
     quizz: {
       questions: [
         {
           id: 1,
-          text: "Pregunta uno",
-          type: "simple",
+          text: 'Pregunta uno',
+          type: 'simple',
           options: [
             {
               id: 1,
-              text: "Opcion 1",
+              text: 'Opcion 1',
               is_correct: false,
             },
             {
               id: 2,
-              text: "Opcion 2",
+              text: 'Opcion 2',
               is_correct: true,
             },
           ],
@@ -44,22 +44,22 @@ export const contents: ContentSeed[] = [
         },
         {
           id: 2,
-          text: "Pregunta dos",
-          type: "multiple",
+          text: 'Pregunta dos',
+          type: 'multiple',
           options: [
             {
               id: 3,
-              text: "Opcion 1",
+              text: 'Opcion 1',
               is_correct: false,
             },
             {
               id: 4,
-              text: "Opcion 2",
+              text: 'Opcion 2',
               is_correct: true,
             },
             {
               id: 5,
-              text: "Opcion 3",
+              text: 'Opcion 3',
               is_correct: true,
             },
           ],
@@ -67,17 +67,17 @@ export const contents: ContentSeed[] = [
         },
         {
           id: 3,
-          text: "Pregunta tres",
-          type: "simple",
+          text: 'Pregunta tres',
+          type: 'simple',
           options: [
             {
               id: 6,
-              text: "Opcion 1",
+              text: 'Opcion 1',
               is_correct: true,
             },
             {
               id: 7,
-              text: "Opcion 2",
+              text: 'Opcion 2',
               is_correct: false,
             },
           ],
@@ -85,8 +85,8 @@ export const contents: ContentSeed[] = [
         },
         {
           id: 4,
-          text: "Pregunta cuatro",
-          type: "open",
+          text: 'Pregunta cuatro',
+          type: 'open',
           order_position: 3,
         },
       ],
@@ -96,7 +96,7 @@ export const contents: ContentSeed[] = [
   },
   {
     id: 3,
-    type: "formatted_text",
+    type: 'formatted_text',
     text: {
       value: `<p>Text</p><img src="url"/><p>Text</p>`,
     },
@@ -105,22 +105,22 @@ export const contents: ContentSeed[] = [
   },
   {
     id: 4,
-    type: "quizz",
+    type: 'quizz',
     quizz: {
       questions: [
         {
           id: 5,
-          text: "Pregunta cinco",
-          type: "simple",
+          text: 'Pregunta cinco',
+          type: 'simple',
           options: [
             {
               id: 8,
-              text: "Opcion 1",
+              text: 'Opcion 1',
               is_correct: false,
             },
             {
               id: 9,
-              text: "Opcion 2",
+              text: 'Opcion 2',
               is_correct: true,
             },
           ],
@@ -128,17 +128,17 @@ export const contents: ContentSeed[] = [
         },
         {
           id: 6,
-          text: "Pregunta seis",
-          type: "simple",
+          text: 'Pregunta seis',
+          type: 'simple',
           options: [
             {
               id: 10,
-              text: "Opcion 1",
+              text: 'Opcion 1',
               is_correct: true,
             },
             {
               id: 11,
-              text: "Opcion 2",
+              text: 'Opcion 2',
               is_correct: false,
             },
           ],
@@ -151,7 +151,7 @@ export const contents: ContentSeed[] = [
   },
   {
     id: 5,
-    type: "formatted_text",
+    type: 'formatted_text',
     text: {
       value: `<p>Text</p><img src="url"/><p>Text</p>`,
     },
@@ -160,7 +160,7 @@ export const contents: ContentSeed[] = [
   },
   {
     id: 6,
-    type: "formatted_text",
+    type: 'formatted_text',
     text: {
       value: `<p>Text</p><img src="url"/><p>Text</p>`,
     },

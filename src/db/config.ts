@@ -1,8 +1,8 @@
-require("dotenv").config();
-import Knex from "knex";
+require('dotenv').config();
+import Knex from 'knex';
 
 export const config = {
-  client: "pg",
+  client: 'pg',
   connection: {
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -10,7 +10,7 @@ export const config = {
     database: process.env.DB_NAME,
   },
   migrations: {
-    directory: "./db/migrations",
+    directory: './db/migrations',
   },
 };
 

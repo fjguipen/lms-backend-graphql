@@ -1,7 +1,7 @@
-import { logIn, logOut, authorize } from "../../auth";
-import { ROLES } from "../../auth/types";
-import { resolveEvaluations } from "./handlers/resolve";
-import { UserModel } from "./model";
+import { logIn, logOut, authorize } from '../../auth';
+import { ROLES } from '../../auth/types';
+import { resolveEvaluations } from './handlers/resolve';
+import { UserModel } from './model';
 
 export default {
   Query: {
@@ -9,10 +9,10 @@ export default {
   },
   User: {
     __resolveType: (source) => {
-      if (source.rol.includes("prf")) {
-        return "Professor";
+      if (source.rol.includes('prf')) {
+        return 'Professor';
       } else {
-        return "Student";
+        return 'Student';
       }
     },
   },

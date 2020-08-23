@@ -1,7 +1,7 @@
-import { resolveContents } from "./handlers/resolve";
-import { authorize } from "../../auth";
-import { ROLES } from "../../auth/types";
-import { LessonModel } from "./model";
+import { resolveContents } from './handlers/resolve';
+import { authorize } from '../../auth';
+import { ROLES } from '../../auth/types';
+import { LessonModel } from './model';
 
 export default {
   Query: {

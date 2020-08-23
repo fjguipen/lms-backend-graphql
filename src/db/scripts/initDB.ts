@@ -1,4 +1,4 @@
-import { db } from "../config";
+import { db } from '../config';
 
 db()
   .schema.raw(
@@ -161,7 +161,7 @@ db()
 `
   )
   .then((result) => {
-    console.log("DB initialziation done");
+    console.log('DB initialziation done');
     process.exit();
   })
   .catch((err) => {

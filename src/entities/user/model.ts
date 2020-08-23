@@ -1,10 +1,10 @@
-import { Model } from "objection";
+import { Model } from 'objection';
 import {
   BaseUser,
   MutationCreateUserArgs,
   QueryUserArgs,
   User,
-} from "../../_generated/types";
+} from '../../_generated/types';
 
 export class UserModel extends Model implements BaseUser {
   id: number;
@@ -14,11 +14,11 @@ export class UserModel extends Model implements BaseUser {
   password: string;
   rol: string[];
 
-  static tableName = "users";
+  static tableName = 'users';
 
   static get relationMappings() {
-    const { CompletedLessonModel } = require("../models");
-    const { EvaluationModel } = require("../models");
+    const { CompletedLessonModel } = require('../models');
+    const { EvaluationModel } = require('../models');
     return {
       completed_lessons: {
         relation: Model.HasManyRelation,
@@ -40,13 +40,13 @@ export class UserModel extends Model implements BaseUser {
   }
 
   static async get(_, { id }: QueryUserArgs): Promise<User> {
-    const user = await UserModel.query().where("id", id).first();
+    const user = await UserModel.query().where('id', id).first();
 
     return user;
   }
 
   static async create(_, { input }: MutationCreateUserArgs): Promise<User> {
-    const user = await UserModel.query().insert(input).returning("*");
+    const user = await UserModel.query().insert(input).returning('*');
 
     return user;
   }

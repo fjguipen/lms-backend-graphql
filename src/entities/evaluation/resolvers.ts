@@ -1,7 +1,7 @@
-import { resolveAnswers } from "./handlers/resolve";
-import { authorize } from "../../auth";
-import { EvaluationModel } from "./model";
-import { ROLES } from "../../auth/types";
+import { resolveAnswers } from './handlers/resolve';
+import { authorize } from '../../auth';
+import { EvaluationModel } from './model';
+import { ROLES } from '../../auth/types';
 
 export default {
   Query: {

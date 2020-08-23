@@ -1,7 +1,7 @@
-import { resolveLessons } from "./handlers/resolve";
-import { authorize } from "../../auth";
-import { ROLES } from "../../auth/types";
-import { LevelModel } from "./model";
+import { resolveLessons } from './handlers/resolve';
+import { authorize } from '../../auth';
+import { ROLES } from '../../auth/types';
+import { LevelModel } from './model';
 
 export default {
   Query: {

@@ -1,12 +1,12 @@
-import { Model } from "objection";
-import { Level, QueryLevelArgs } from "../../_generated/types";
+import { Model } from 'objection';
+import { Level, QueryLevelArgs } from '../../_generated/types';
 
 export class LevelModel extends Model implements Level {
-  static tableName = "levels";
+  static tableName = 'levels';
   id: number;
 
   static get relationMappings() {
-    const { LessonModel } = require("../models");
+    const { LessonModel } = require('../models');
     return {
       lessons: {
         relation: Model.HasManyRelation,
