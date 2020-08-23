@@ -1,5 +1,6 @@
-import { Model, QueryBuilder } from 'objection';
+import { Model } from 'objection';
 import { Question, QuestionOption } from '../../_generated/types';
+import { sortByOrderPosition } from '../commons';
 
 export class QuestionModel extends Model implements Question {
   static tableName = 'questions'
@@ -8,14 +9,14 @@ export class QuestionModel extends Model implements Question {
 
   static get modifiers() {
     return {
-      sort(builder: QueryBuilder<Model>){
-        builder.orderBy('order_position')
-      }
+      sort: sortByOrderPosition
     }
   }
 
   static get relationMappings() {
     const { QuizzModel } = require('../models')
+    const { AnswerModel } = require('../models')
+
     return {
       quizz: {
         relation: Model.BelongsToOneRelation,
@@ -32,7 +33,15 @@ export class QuestionModel extends Model implements Question {
           from: `${QuestionModel.tableName}.id`,
           to: `${QuestionOptionModel.tableName}.question_id`
         }
-      }
+      },
+      answers: {
+        relation: Model.HasManyRelation,
+        modelClass: AnswerModel,
+        join: {
+          from: `${QuestionModel.tableName}.id`,
+          to: `${AnswerModel.tableName}.evaluation_id`
+        }
+      },
     };
   }
 }

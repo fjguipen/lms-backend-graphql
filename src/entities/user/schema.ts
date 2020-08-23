@@ -10,13 +10,43 @@ export default gql`
     logout: CurrentUser
   }
 
-  type User {
+  interface User {
     id: Int!
     name: String
     email: String
     username: String
     password: String
     rol: [String]
+  }
+
+  # Just generate type for ModelClass
+  type BaseUser implements User{
+    id: Int!
+    name: String
+    email: String
+    username: String
+    password: String
+    rol: [String]
+  }
+
+  type Professor implements User{
+    id: Int!
+    name: String
+    email: String
+    username: String
+    password: String
+    rol: [String]
+  }
+
+  type Student implements User {
+    id: Int!
+    name: String
+    email: String
+    username: String
+    password: String
+    rol: [String]
+    evaluations: [Evaluation]
+    completed_lessons: [Lesson]
   }
 
   type CurrentUser {

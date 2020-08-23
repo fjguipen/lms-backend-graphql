@@ -2,14 +2,13 @@ import { Lesson, QueryLessonsArgs } from "../../../_generated/types";
 import { LessonModel, CompletedLessonModel } from "../model";
 import { ResolversContext } from "../../../types";
 import { UserModel } from "../../user/model";
-import { QuizzModel, ContentModel } from "../../content/model";
-import { EvaluationModel } from "../../evaluation/model";
 import { ApolloError } from "apollo-server-core";
 
 async function checkLessonRequirements(user: UserModel, lesson: LessonModel){
   const prevLesson = await LessonModel.query()
     .where('level_id', lesson.level_id)
     .where('order_position', '<', lesson.order_position)
+    .modify('sort', 'DESC')
     .first()
 
   if (prevLesson){
@@ -18,6 +17,8 @@ async function checkLessonRequirements(user: UserModel, lesson: LessonModel){
       .where('lesson_id', prevLesson.id)
       .where('user_id', user.id)
       .first()
+
+    
 
     if (!completed){
       throw new ApolloError(

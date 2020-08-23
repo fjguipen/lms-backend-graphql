@@ -3,7 +3,7 @@ import { QuizzModel, FormattedTextModel } from "../model";
 import { QuestionModel } from "../../question/model";
 
 export async function resolveQuizz(content: Content){
-  if (content.type !== 'quizzes'){
+  if (content.type !== 'quizz'){
     return null
   }
 

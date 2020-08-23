@@ -1,5 +1,6 @@
-import { Model, QueryBuilder } from 'objection';
+import { Model } from 'objection';
 import { Lesson } from '../../_generated/types';
+import { sortByOrderPosition } from '../commons';
 
 export class LessonModel extends Model implements Lesson {
   static tableName = 'lessons'
@@ -11,9 +12,7 @@ export class LessonModel extends Model implements Lesson {
 
   static get modifiers() {
     return {
-      sort(builder: QueryBuilder<Model>){
-        builder.orderBy('order_position')
-      }
+      sort: sortByOrderPosition
     }
   }
 
@@ -27,6 +26,14 @@ export class LessonModel extends Model implements Lesson {
           from: `${LessonModel.tableName}.level_id`,
           to: `${LevelModel.tableName}.id`
         }
+      },
+      completed_lessons: {
+        relation: Model.HasManyRelation,
+        modelClass: CompletedLessonModel as any,
+        join: {
+          from: `${LessonModel.tableName}.id`,
+          to: `${CompletedLessonModel.tableName}.lesson_id`
+        }
       }
     };
   }
@@ -38,4 +45,26 @@ export class CompletedLessonModel extends Model {
   id: number
   user_id: number
   lesson_id: number
+
+  static get relationMappings() {
+    const { UserModel } = require('../models')
+    return {
+      lesson: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: LessonModel as any,
+        join: {
+          from: `${CompletedLessonModel.tableName}.lesson_id`,
+          to: `${LessonModel.tableName}.id`
+        }
+      },
+      user: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: UserModel,
+        join: {
+          from: `${CompletedLessonModel.tableName}.user_id`,
+          to: `${UserModel.tableName}.id`
+        }
+      }
+    };
+  }
 }

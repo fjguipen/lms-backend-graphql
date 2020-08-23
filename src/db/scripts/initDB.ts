@@ -34,7 +34,7 @@ db().schema.raw(`
     id                serial,
     lesson_id         integer,
     user_id           integer,
-    created         TIMESTAMP(3)    DEFAULT (now() at time zone 'utc'),
+    created           TIMESTAMP(3)    DEFAULT (now() at time zone 'utc'),
     PRIMARY KEY(lesson_id, user_id),
     FOREIGN KEY(lesson_id) REFERENCES lessons(id) ON DELETE CASCADE,
     FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
@@ -47,7 +47,7 @@ db().schema.raw(`
     order_position           integer,
     PRIMARY KEY(id),
     FOREIGN KEY(lesson_id) REFERENCES lessons(id) ON DELETE CASCADE,
-    CHECK(type in ('quizzes', 'formatted_text'))
+    CHECK(type in ('quizz', 'formatted_text'))
   );
 
   CREATE TABLE IF NOT EXISTS content_views(
@@ -61,13 +61,13 @@ db().schema.raw(`
   );
 
   CREATE TABLE IF NOT EXISTS quizzes(
-    id              serial,
+    id              integer,
     PRIMARY KEY(id),
     FOREIGN KEY(id) REFERENCES contents(id) ON DELETE CASCADE
   );
 
   CREATE TABLE IF NOT EXISTS formatted_texts(
-    id              serial,
+    id              integer,
     value           text,
     PRIMARY KEY(id),
     FOREIGN KEY(id) REFERENCES contents(id) ON DELETE CASCADE
@@ -128,7 +128,7 @@ db().schema.raw(`
     user_id         integer,
     quizz_id        integer,
     mark            integer,
-    success         boolean,
+    success         boolean         DEFAULT false,
     created         TIMESTAMP(3)    DEFAULT (now() at time zone 'utc'),                
     PRIMARY KEY(id),
     FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE SET NULL,
@@ -139,7 +139,7 @@ db().schema.raw(`
     id                serial,
     question_id       integer,
     evaluation_id     integer,
-    value             integer,
+    value             text,
     PRIMARY KEY(question_id, evaluation_id),
     FOREIGN KEY(question_id) REFERENCES questions(id) ON DELETE CASCADE,
     FOREIGN KEY(evaluation_id) REFERENCES evaluations(id) ON DELETE CASCADE

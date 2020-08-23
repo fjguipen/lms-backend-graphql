@@ -13,6 +13,7 @@ export class EvaluationModel extends Model implements Evaluation {
   static get relationMappings() {
     const { QuizzModel } = require('../models')
     const { UserModel } = require('../models')
+    const { AnswerModel } = require('../models')
 
     return {
       quizz: {
@@ -30,7 +31,15 @@ export class EvaluationModel extends Model implements Evaluation {
           from: `${EvaluationModel.tableName}.user_id`,
           to: `${UserModel.tableName}.id`
         }
-      }
+      },
+      answers: {
+        relation: Model.HasManyRelation,
+        modelClass: AnswerModel,
+        join: {
+          from: `${EvaluationModel.tableName}.id`,
+          to: `${AnswerModel.tableName}.evaluation_id`
+        }
+      },
     };
   }
 }

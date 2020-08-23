@@ -13,6 +13,7 @@ export default gql`
     mark: Int
     success: Boolean
     created: String
+    answers: [Answer]
   }
 
   input EvaluationFilterInput {

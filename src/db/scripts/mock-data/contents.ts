@@ -1,4 +1,15 @@
-export const contents = [
+import { FormattedText, Quizz } from "../../../_generated/types";
+
+interface ContentSeed {
+  id: number,
+  type: string,
+  text?: Partial<FormattedText>
+  quizz?: Partial<Quizz>
+  lesson_id: number
+  order_position: number
+}
+
+export const contents: ContentSeed[] = [
   {
     id: 1,
     type: 'formatted_text',
@@ -10,7 +21,7 @@ export const contents = [
   },
   {
     id: 2,
-    type: 'quizzes',
+    type: 'quizz',
     quizz: {
       questions: [
         {
@@ -84,7 +95,7 @@ export const contents = [
   },
   {
     id: 4,
-    type: 'quizzes',
+    type: 'quizz',
     quizz: {
       questions: [
         {
@@ -121,5 +132,23 @@ export const contents = [
     },
     lesson_id: 1,
     order_position: 3
+  },
+  {
+    id: 5,
+    type: 'formatted_text',
+    text: {
+      value: `<p>Text</p><img src="url"/><p>Text</p>`
+    },
+    lesson_id: 2,
+    order_position: 0
+  },
+  {
+    id: 6,
+    type: 'formatted_text',
+    text: {
+      value: `<p>Text</p><img src="url"/><p>Text</p>`
+    },
+    lesson_id: 2,
+    order_position: 1
   },
 ]

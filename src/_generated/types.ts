@@ -11,6 +11,8 @@ export type Scalars = {
 
 export type Query = {
   __typename?: 'Query';
+  answer?: Maybe<Answer>;
+  answers?: Maybe<Array<Maybe<Answer>>>;
   content?: Maybe<Content>;
   contents?: Maybe<Array<Maybe<Content>>>;
   evaluation?: Maybe<Evaluation>;
@@ -22,6 +24,16 @@ export type Query = {
   question?: Maybe<Question>;
   questions?: Maybe<Array<Maybe<Question>>>;
   user?: Maybe<User>;
+};
+
+
+export type QueryAnswerArgs = {
+  id?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryAnswersArgs = {
+  iput?: Maybe<AnswerFilterInput>;
 };
 
 
@@ -74,6 +86,50 @@ export type QueryUserArgs = {
   id?: Maybe<Scalars['Int']>;
 };
 
+export type Answer = {
+  __typename?: 'Answer';
+  id: Scalars['Int'];
+  question_id?: Maybe<Scalars['Int']>;
+  evaluation_id?: Maybe<Scalars['Int']>;
+  value?: Maybe<Scalars['String']>;
+};
+
+export type AnswerFilterInput = {
+  quizz_id?: Maybe<Scalars['Int']>;
+  question_id?: Maybe<Scalars['Int']>;
+  user_id?: Maybe<Scalars['Int']>;
+  evaluation_id?: Maybe<Scalars['Int']>;
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  createContent?: Maybe<Content>;
+  deleteContent?: Maybe<Content>;
+  login?: Maybe<CurrentUser>;
+  logout?: Maybe<CurrentUser>;
+  updateContent?: Maybe<Content>;
+};
+
+
+export type MutationCreateContentArgs = {
+  input?: Maybe<CreateContentInput>;
+};
+
+
+export type MutationDeleteContentArgs = {
+  ids?: Maybe<Array<Maybe<Scalars['Int']>>>;
+};
+
+
+export type MutationLoginArgs = {
+  input?: Maybe<LoginInput>;
+};
+
+
+export type MutationUpdateContentArgs = {
+  input?: Maybe<UpdateContentInput>;
+};
+
 export type FormattedText = {
   __typename?: 'FormattedText';
   id: Scalars['Int'];
@@ -101,6 +157,30 @@ export type ContentsFilterInput = {
   type?: Maybe<Scalars['String']>;
 };
 
+export type CreateContentInput = {
+  type: Scalars['String'];
+  questions?: Maybe<Array<Maybe<QuestionInput>>>;
+  lesson_id: Scalars['Int'];
+  order_position?: Maybe<Scalars['Int']>;
+  text?: Maybe<Scalars['String']>;
+};
+
+export type UpdateContentInput = {
+  id: Scalars['Int'];
+  type?: Maybe<Scalars['String']>;
+  questions?: Maybe<Array<Maybe<QuestionInput>>>;
+  lesson_id?: Maybe<Scalars['Int']>;
+  order_position?: Maybe<Scalars['Int']>;
+  text?: Maybe<Scalars['String']>;
+};
+
+export type QuestionInput = {
+  type?: Maybe<Scalars['String']>;
+  text?: Maybe<Scalars['String']>;
+  options?: Maybe<Array<Maybe<Scalars['String']>>>;
+  are_correct?: Maybe<Array<Maybe<Scalars['Int']>>>;
+};
+
 export type Evaluation = {
   __typename?: 'Evaluation';
   id: Scalars['Int'];
@@ -109,6 +189,7 @@ export type Evaluation = {
   mark?: Maybe<Scalars['Int']>;
   success?: Maybe<Scalars['Boolean']>;
   created?: Maybe<Scalars['String']>;
+  answers?: Maybe<Array<Maybe<Answer>>>;
 };
 
 export type EvaluationFilterInput = {
@@ -161,25 +242,45 @@ export type QuestionFilterInput = {
   quizz_id?: Maybe<Scalars['Int']>;
 };
 
-export type Mutation = {
-  __typename?: 'Mutation';
-  login?: Maybe<CurrentUser>;
-  logout?: Maybe<CurrentUser>;
-};
-
-
-export type MutationLoginArgs = {
-  input?: Maybe<LoginInput>;
-};
-
 export type User = {
-  __typename?: 'User';
   id: Scalars['Int'];
   name?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   username?: Maybe<Scalars['String']>;
   password?: Maybe<Scalars['String']>;
   rol?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+export type BaseUser = User & {
+  __typename?: 'BaseUser';
+  id: Scalars['Int'];
+  name?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  username?: Maybe<Scalars['String']>;
+  password?: Maybe<Scalars['String']>;
+  rol?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+export type Professor = User & {
+  __typename?: 'Professor';
+  id: Scalars['Int'];
+  name?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  username?: Maybe<Scalars['String']>;
+  password?: Maybe<Scalars['String']>;
+  rol?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+export type Student = User & {
+  __typename?: 'Student';
+  id: Scalars['Int'];
+  name?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  username?: Maybe<Scalars['String']>;
+  password?: Maybe<Scalars['String']>;
+  rol?: Maybe<Array<Maybe<Scalars['String']>>>;
+  evaluations?: Maybe<Array<Maybe<Evaluation>>>;
+  completed_lessons?: Maybe<Array<Maybe<Lesson>>>;
 };
 
 export type CurrentUser = {

@@ -1,5 +1,7 @@
-import { Model, QueryBuilder, OrderByDirection } from 'objection';
-import { Content, FormattedText, Quizz } from '../../_generated/types';
+import { Model } from 'objection';
+import { Content, FormattedText, Quizz, QueryContentArgs, MutationCreateContentArgs, MutationUpdateContentArgs, QueryContentsArgs, MutationDeleteContentArgs } from '../../_generated/types';
+import { sortByOrderPosition } from '../commons';
+import { ResolversContext } from '../../types';
 
 export class FormattedTextModel extends Model implements FormattedText {
   static tableName = 'formatted_texts'
@@ -56,9 +58,7 @@ export class ContentModel extends Model implements Content{
 
   static get modifiers() {
     return {
-      sort(builder: QueryBuilder<Model>, direction: OrderByDirection = 'ASC'){
-        builder.orderBy('order_position', direction)
-      }
+      sort: sortByOrderPosition
     }
   }
 
@@ -91,5 +91,33 @@ export class ContentModel extends Model implements Content{
         }
       },
     };
+  }
+
+  static async create(_, { input }: MutationCreateContentArgs, { session }: ResolversContext){
+    const content = await ContentModel.query().insert(input).returning('*')
+    return content
+  }
+
+  static async update(_, { input }: MutationUpdateContentArgs, { session }: ResolversContext){
+    const content = await ContentModel.query().patch(input).where('id', input.id)
+    return content
+  }
+
+  static async delete(_, { ids }: MutationDeleteContentArgs, { session }: ResolversContext){
+    const content = await ContentModel.query().delete().where('id', 'in', ids)
+    return content
+  }
+
+  static async getOne(_, { id }: QueryContentArgs): Promise<Content> {
+    return await ContentModel.query().findById(id)
+  }
+
+  static async getMany(_, { input }: QueryContentsArgs): Promise<Content[]> {
+    return ContentModel.query()
+      .modify( query => {
+        for (let key of Object.keys(input)){
+          query.where(key, input[key])
+        }
+      })
   }
 }
