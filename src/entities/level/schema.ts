@@ -4,7 +4,7 @@ export default gql`
   type Query {
     level(id: Int): Level
     levels: [Level!]
-  } 
+  }
 
   type Level {
     id: Int!
@@ -12,4 +12,4 @@ export default gql`
     description: String
     lessons: [Lesson!]
   }
-`
+`;

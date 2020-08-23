@@ -6,9 +6,9 @@ import { LevelModel } from "./model";
 export default {
   Query: {
     level: authorize(LevelModel.get, [ROLES.ANY]),
-    levels: authorize(LevelModel.getMany, [ROLES.ANY])
+    levels: authorize(LevelModel.getMany, [ROLES.ANY]),
   },
   Level: {
-    lessons: resolveLessons
-  }
+    lessons: resolveLessons,
+  },
 };

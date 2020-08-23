@@ -23,25 +23,25 @@ export class EvaluationModel extends Model implements Evaluation {
         modelClass: QuizzModel,
         join: {
           from: `${EvaluationModel.tableName}.quizz_id`,
-          to: `${QuizzModel.tableName}.id`
-        }
+          to: `${QuizzModel.tableName}.id`,
+        },
       },
       user: {
         relation: Model.BelongsToOneRelation,
         modelClass: UserModel,
         join: {
           from: `${EvaluationModel.tableName}.user_id`,
-          to: `${UserModel.tableName}.id`
-        }
+          to: `${UserModel.tableName}.id`,
+        },
       },
       answers: {
         relation: Model.HasManyRelation,
         modelClass: AnswerModel,
         join: {
           from: `${EvaluationModel.tableName}.id`,
-          to: `${AnswerModel.tableName}.evaluation_id`
-        }
-      }
+          to: `${AnswerModel.tableName}.evaluation_id`,
+        },
+      },
     };
   }
 

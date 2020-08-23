@@ -18,4 +18,4 @@ export default gql`
   input LessonFilterInput {
     level_id: Int
   }
-`
+`;

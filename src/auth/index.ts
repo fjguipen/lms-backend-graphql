@@ -3,7 +3,7 @@ import {
   ResolversContext,
   Session,
   HighOrderReturnType,
-  ResolverFuncType
+  ResolverFuncType,
 } from "../types";
 import { UserModel } from "../entities/models";
 import { ApolloError } from "apollo-server-core";
@@ -32,7 +32,7 @@ export async function logIn(
     id,
     name,
     email,
-    username
+    username,
   };
 
   ctx.session.user = { id, username };
@@ -66,7 +66,7 @@ export async function authenticatedSession(
  * Requester authorization at resolver level
  * @param fn Resolve function being wrapped by this HOF.
  * @param allowedRoles Array of allowed roles.
- * @param silent Turns off raising errors. Just remove requested data if conditions doesn't meet. 
+ * @param silent Turns off raising errors. Just remove requested data if conditions doesn't meet.
  * Default: false
  */
 export function authorize<T extends ResolverFuncType>(
@@ -85,10 +85,10 @@ export function authorize<T extends ResolverFuncType>(
 
       // Check if userRoles includes any of the allowed roles
       if (
-        !allowedRoles.includes('*') &&
+        !allowedRoles.includes("*") &&
         (!userRoles ||
-        userRoles.length === 0 ||
-        !allowedRoles.some(rol => userRoles.includes(rol) || rol === "*"))
+          userRoles.length === 0 ||
+          !allowedRoles.some((rol) => userRoles.includes(rol) || rol === "*"))
       ) {
         if (silent) {
           return null;

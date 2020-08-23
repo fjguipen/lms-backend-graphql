@@ -4,14 +4,14 @@ import { ROLES } from "../../auth/types";
 import { authorize } from "../../auth";
 
 export default {
-  Query:{
+  Query: {
     question: authorize(getQuestion, [ROLES.PROFESSOR]),
     questions: authorize(getQuestions, [ROLES.PROFESSOR]),
   },
-  Question:{
-    options: resolveOptions
+  Question: {
+    options: resolveOptions,
   },
   QuestionOption: {
-    is_correct: authorize(resolveIsCorrectOption, [ROLES.PROFESSOR], true)
-  }
-}
+    is_correct: authorize(resolveIsCorrectOption, [ROLES.PROFESSOR], true),
+  },
+};

@@ -35,4 +35,4 @@ export default gql`
     quizz_id: Int
     answers: [AnswerInput]
   }
-`
+`;

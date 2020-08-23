@@ -2,14 +2,14 @@ import { Model } from "objection";
 import {
   Lesson,
   QueryLessonArgs,
-  QueryLessonsArgs
+  QueryLessonsArgs,
 } from "../../_generated/types";
 import { sortByOrderPosition } from "../commons";
 import { ResolversContext } from "../../types";
 import { UserModel } from "../user/model";
 import {
   checkLessonRequirements,
-  filterLessonsByRequirements
+  filterLessonsByRequirements,
 } from "./handlers/requirements";
 
 export class LessonModel extends Model implements Lesson {
@@ -22,7 +22,7 @@ export class LessonModel extends Model implements Lesson {
 
   static get modifiers() {
     return {
-      sort: sortByOrderPosition
+      sort: sortByOrderPosition,
     };
   }
 
@@ -34,17 +34,17 @@ export class LessonModel extends Model implements Lesson {
         modelClass: LevelModel,
         join: {
           from: `${LessonModel.tableName}.level_id`,
-          to: `${LevelModel.tableName}.id`
-        }
+          to: `${LevelModel.tableName}.id`,
+        },
       },
       completed_lessons: {
         relation: Model.HasManyRelation,
         modelClass: CompletedLessonModel as any,
         join: {
           from: `${LessonModel.tableName}.id`,
-          to: `${CompletedLessonModel.tableName}.lesson_id`
-        }
-      }
+          to: `${CompletedLessonModel.tableName}.lesson_id`,
+        },
+      },
     };
   }
 
@@ -55,7 +55,7 @@ export class LessonModel extends Model implements Lesson {
   ): Promise<Lesson> {
     const user = await UserModel.query().findById(session.user.id);
     const lesson = await LessonModel.query().findById(id);
-    if (!["adm", "prf"].some(rol => user.rol.includes(rol))) {
+    if (!["adm", "prf"].some((rol) => user.rol.includes(rol))) {
       await checkLessonRequirements(user, lesson);
     }
 
@@ -71,13 +71,13 @@ export class LessonModel extends Model implements Lesson {
 
     const lessons = await LessonModel.query()
       .modify("sort")
-      .modify(query => {
+      .modify((query) => {
         for (let key of Object.keys(input)) {
           query.where(key, input[key]);
         }
       });
 
-    if (!["adm", "prf"].some(rol => user.rol.includes(rol))) {
+    if (!["adm", "prf"].some((rol) => user.rol.includes(rol))) {
       return await filterLessonsByRequirements(user, lessons);
     }
 
@@ -87,7 +87,7 @@ export class LessonModel extends Model implements Lesson {
   static async markAsCompleted(lessonId: number, userId: number) {
     await CompletedLessonModel.query().insert({
       user_id: userId,
-      lesson_id: lessonId
+      lesson_id: lessonId,
     });
   }
 }
@@ -107,17 +107,17 @@ export class CompletedLessonModel extends Model {
         modelClass: LessonModel as any,
         join: {
           from: `${CompletedLessonModel.tableName}.lesson_id`,
-          to: `${LessonModel.tableName}.id`
-        }
+          to: `${LessonModel.tableName}.id`,
+        },
       },
       user: {
         relation: Model.BelongsToOneRelation,
         modelClass: UserModel,
         join: {
           from: `${CompletedLessonModel.tableName}.user_id`,
-          to: `${UserModel.tableName}.id`
-        }
-      }
+          to: `${UserModel.tableName}.id`,
+        },
+      },
     };
   }
 }

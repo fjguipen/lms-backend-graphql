@@ -25,14 +25,14 @@ export async function handleQuizzEvaluation(
     .where("quizz_id", quizz_id)
     .withGraphFetched("options");
 
-  if (!allEntriesUniques(answers.map(a => a.question_id))) {
+  if (!allEntriesUniques(answers.map((a) => a.question_id))) {
     throw new ApolloError("More than one answer per question is not allowed");
   }
 
   if (
     !answers
-      .map(a => a.question_id)
-      .every(questionId => questions.map(q => q.id).includes(questionId))
+      .map((a) => a.question_id)
+      .every((questionId) => questions.map((q) => q.id).includes(questionId))
   ) {
     throw new ApolloError("All questions must be answered");
   }
@@ -40,15 +40,15 @@ export async function handleQuizzEvaluation(
   // let success = false;
   const { mark, success } = getMark(
     // Open answers questions doesnt count towards evaluation
-    questions.filter(q => q.type !== "open"),
-    answers.filter(a => a.answer && a.answer.length > 0)
+    questions.filter((q) => q.type !== "open"),
+    answers.filter((a) => a.answer && a.answer.length > 0)
   );
 
   if (success) {
     const lastLessonContent = await ContentModel.query()
       .modify("sort", "DESC")
       .where({
-        lesson_id: quizz.lesson_id
+        lesson_id: quizz.lesson_id,
       })
       .first();
     if (quizz.id === lastLessonContent.id) {
@@ -60,7 +60,7 @@ export async function handleQuizzEvaluation(
     user_id,
     quizz_id,
     mark,
-    success
+    success,
   });
 }
 
@@ -69,7 +69,7 @@ async function validityChecks(user_id: number, quizz_id: number) {
     .where({
       user_id,
       quizz_id,
-      success: true
+      success: true,
     })
     .first();
   if (alreadySucceeded) {
@@ -84,16 +84,17 @@ function getMark(
   let mark = 0;
   let success = false;
 
-  questions.forEach(question => {
+  questions.forEach((question) => {
     try {
-      const options = answers.find(answer => answer.question_id === question.id)
-        .answer;
+      const options = answers.find(
+        (answer) => answer.question_id === question.id
+      ).answer;
 
       const correctOptions = question.options
-        .filter(q => q.is_correct)
-        .map(q => q.id);
+        .filter((q) => q.is_correct)
+        .map((q) => q.id);
       if (
-        options.some(option => correctOptions.includes(parseInt(option, 10)))
+        options.some((option) => correctOptions.includes(parseInt(option, 10)))
       ) {
         mark++;
       }

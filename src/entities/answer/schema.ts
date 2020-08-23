@@ -6,7 +6,7 @@ export default gql`
     answers(iput: AnswerFilterInput): [Answer]
   }
 
-  type Answer{
+  type Answer {
     id: Int!
     question_id: Int
     evaluation_id: Int
@@ -19,4 +19,4 @@ export default gql`
     user_id: Int
     evaluation_id: Int
   }
-`
+`;

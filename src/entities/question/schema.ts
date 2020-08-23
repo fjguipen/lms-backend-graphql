@@ -25,4 +25,4 @@ export default gql`
   input QuestionFilterInput {
     quizz_id: Int
   }
-`
+`;

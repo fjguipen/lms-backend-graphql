@@ -22,7 +22,7 @@ export default gql`
   }
 
   # Just generate type for ModelClass
-  type BaseUser implements User{
+  type BaseUser implements User {
     id: Int!
     name: String
     email: String
@@ -31,7 +31,7 @@ export default gql`
     rol: [String]
   }
 
-  type Professor implements User{
+  type Professor implements User {
     id: Int!
     name: String
     email: String
@@ -80,4 +80,4 @@ export default gql`
     username: String
     password: String
   }
-`
+`;

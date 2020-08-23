@@ -4,32 +4,32 @@ import { resolveEvaluations } from "./handlers/resolve";
 import { UserModel } from "./model";
 
 export default {
-  Query:{
-    user: authorize(UserModel.get, [ROLES.ADMIN, ROLES.PROFESSOR])
+  Query: {
+    user: authorize(UserModel.get, [ROLES.ADMIN, ROLES.PROFESSOR]),
   },
   User: {
     __resolveType: (source) => {
-      if (source.rol.includes('prf')){
-        return 'Professor'
+      if (source.rol.includes("prf")) {
+        return "Professor";
       } else {
-        return 'Student'
+        return "Student";
       }
     },
   },
-  Student:{
+  Student: {
     password: () => {
-      return null
+      return null;
     },
     evaluations: resolveEvaluations,
   },
   Professor: {
     password: () => {
-      return null
+      return null;
     },
   },
   Mutation: {
     login: logIn,
     logout: logOut,
-    createUser: authorize(UserModel.create, [ROLES.ADMIN])
+    createUser: authorize(UserModel.create, [ROLES.ADMIN]),
   },
-}
+};

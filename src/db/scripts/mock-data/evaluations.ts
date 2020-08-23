@@ -9,25 +9,25 @@ export const evaluations: Evaluation[] = [
     answers: [
       {
         id: 1,
-        question_id:1,
-        value: 'Answer 1',
+        question_id: 1,
+        value: "Answer 1",
       },
       {
         id: 2,
-        question_id:2,
-        value: 'Answer 2',
+        question_id: 2,
+        value: "Answer 2",
       },
       {
         id: 3,
-        question_id:3,
-        value: 'Answer 3',
+        question_id: 3,
+        value: "Answer 3",
       },
       {
         id: 4,
-        question_id:4,
-        value: 'Answer 4',
-      }
-    ]
+        question_id: 4,
+        value: "Answer 4",
+      },
+    ],
   },
   {
     id: 2,
@@ -37,24 +37,24 @@ export const evaluations: Evaluation[] = [
     answers: [
       {
         id: 5,
-        question_id:1,
-        value: 'Answer 1',
+        question_id: 1,
+        value: "Answer 1",
       },
       {
         id: 6,
-        question_id:2,
-        value: 'Answer 2',
+        question_id: 2,
+        value: "Answer 2",
       },
       {
         id: 7,
-        question_id:3,
-        value: 'Answer 3',
+        question_id: 3,
+        value: "Answer 3",
       },
       {
         id: 8,
-        question_id:4,
-        value: 'Answer 4',
-      }
+        question_id: 4,
+        value: "Answer 4",
+      },
     ],
     success: true,
   },
@@ -66,15 +66,15 @@ export const evaluations: Evaluation[] = [
     answers: [
       {
         id: 9,
-        question_id:5,
-        value: 'Answer 1',
+        question_id: 5,
+        value: "Answer 1",
       },
       {
         id: 10,
-        question_id:6,
-        value: 'Answer 2',
+        question_id: 6,
+        value: "Answer 2",
       },
-    ]
+    ],
   },
   {
     id: 4,
@@ -84,24 +84,24 @@ export const evaluations: Evaluation[] = [
     answers: [
       {
         id: 11,
-        question_id:1,
-        value: 'Answer 1',
+        question_id: 1,
+        value: "Answer 1",
       },
       {
         id: 12,
-        question_id:2,
-        value: 'Answer 2',
+        question_id: 2,
+        value: "Answer 2",
       },
       {
         id: 13,
-        question_id:3,
-        value: 'Answer 3',
+        question_id: 3,
+        value: "Answer 3",
       },
       {
         id: 14,
-        question_id:4,
-        value: 'Answer 4',
-      }
-    ]
+        question_id: 4,
+        value: "Answer 4",
+      },
+    ],
   },
-]
+];

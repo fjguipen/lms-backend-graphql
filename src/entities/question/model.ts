@@ -1,24 +1,24 @@
-import { Model } from 'objection';
-import { Question, QuestionOption } from '../../_generated/types';
-import { sortByOrderPosition } from '../commons';
+import { Model } from "objection";
+import { Question, QuestionOption } from "../../_generated/types";
+import { sortByOrderPosition } from "../commons";
 
 export class QuestionModel extends Model implements Question {
-  static tableName = 'questions'
-  id: number
-  type: string
-  quizz_id: number
-  text: string
-  order_position: number
+  static tableName = "questions";
+  id: number;
+  type: string;
+  quizz_id: number;
+  text: string;
+  order_position: number;
 
   static get modifiers() {
     return {
-      sort: sortByOrderPosition
-    }
+      sort: sortByOrderPosition,
+    };
   }
 
   static get relationMappings() {
-    const { QuizzModel } = require('../models')
-    const { AnswerModel } = require('../models')
+    const { QuizzModel } = require("../models");
+    const { AnswerModel } = require("../models");
 
     return {
       quizz: {
@@ -26,32 +26,32 @@ export class QuestionModel extends Model implements Question {
         modelClass: QuizzModel,
         join: {
           from: `${QuestionModel.tableName}.quizz_id`,
-          to: `${QuizzModel.tableName}.id`
-        }
+          to: `${QuizzModel.tableName}.id`,
+        },
       },
       options: {
         relation: Model.HasManyRelation,
         modelClass: QuestionOptionModel as any,
         join: {
           from: `${QuestionModel.tableName}.id`,
-          to: `${QuestionOptionModel.tableName}.question_id`
-        }
+          to: `${QuestionOptionModel.tableName}.question_id`,
+        },
       },
       answers: {
         relation: Model.HasManyRelation,
         modelClass: AnswerModel,
         join: {
           from: `${QuestionModel.tableName}.id`,
-          to: `${AnswerModel.tableName}.evaluation_id`
-        }
+          to: `${AnswerModel.tableName}.evaluation_id`,
+        },
       },
     };
   }
 }
 
 export class QuestionOptionModel extends Model implements QuestionOption {
-  static tableName = 'options'
-  id: number
+  static tableName = "options";
+  id: number;
 
   static get relationMappings() {
     return {
@@ -60,9 +60,9 @@ export class QuestionOptionModel extends Model implements QuestionOption {
         modelClass: QuestionModel as any,
         join: {
           from: `${QuestionOptionModel.tableName}.question_id`,
-          to: `${QuestionModel.tableName}.id`
-        }
-      }
+          to: `${QuestionModel.tableName}.id`,
+        },
+      },
     };
-  }  
+  }
 }

@@ -5,13 +5,13 @@ import { ROLES } from "../../auth/types";
 
 export default {
   Query: {
-    evaluation: () =>  null,
-    evaluations: () =>  null,
+    evaluation: () => null,
+    evaluations: () => null,
   },
-  Mutation:{
-    evaluateQuizz: authorize(EvaluationModel.evaluateQuizz, [ROLES.STUDENT])
+  Mutation: {
+    evaluateQuizz: authorize(EvaluationModel.evaluateQuizz, [ROLES.STUDENT]),
   },
   Evaluation: {
-    answers: resolveAnswers
-  }
-}
+    answers: resolveAnswers,
+  },
+};

@@ -1,6 +1,8 @@
 import { db } from "../config";
 
-db().schema.raw(`
+db()
+  .schema.raw(
+    `
   CREATE TABLE IF NOT EXISTS users(
     id            serial,
     email         text        unique,
@@ -156,11 +158,13 @@ db().schema.raw(`
     ADD CONSTRAINT "sessions_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
   
   CREATE INDEX "IDX_session_expire" ON "sessions" ("expire");
-`).then( result => {
-  console.log("DB initialziation done")
-  process.exit()
-})
-.catch(err => {
-  console.log(err.message)
-  process.exit()
-})
+`
+  )
+  .then((result) => {
+    console.log("DB initialziation done");
+    process.exit();
+  })
+  .catch((err) => {
+    console.log(err.message);
+    process.exit();
+  });

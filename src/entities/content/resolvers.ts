@@ -1,12 +1,16 @@
-import { resolveQuizz, resolveFormattedText, resolveQuestions } from "./handlers/resolve";
+import {
+  resolveQuizz,
+  resolveFormattedText,
+  resolveQuestions,
+} from "./handlers/resolve";
 import { authorize } from "../../auth";
 import { ROLES } from "../../auth/types";
 import { ContentModel } from "./model";
 
 export default {
-  Query:{
+  Query: {
     content: authorize(ContentModel.getOne, [ROLES.PROFESSOR]),
-    contents: authorize(ContentModel.getMany, [ROLES.PROFESSOR])
+    contents: authorize(ContentModel.getMany, [ROLES.PROFESSOR]),
   },
   Mutation: {
     createContent: authorize(ContentModel.create, [ROLES.PROFESSOR]),
@@ -15,9 +19,9 @@ export default {
   },
   Content: {
     quizz: resolveQuizz,
-    text: resolveFormattedText 
+    text: resolveFormattedText,
   },
   Quizz: {
-    questions: resolveQuestions
-  }
-}
+    questions: resolveQuestions,
+  },
+};
