@@ -161,7 +161,7 @@ db()
 `
   )
   .then((result) => {
-    console.log('DB initialziation done');
+    console.log('DB initialization done');
     process.exit();
   })
   .catch((err) => {
