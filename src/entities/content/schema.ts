@@ -9,7 +9,7 @@ export default gql`
   type Mutation {
     createContent(input: CreateContentInput): Content
     updateContent(input: UpdateContentInput): Content
-    deleteContent(ids: [Int]): Content
+    deleteContent(ids: [Int]): [Content]
   }
 
   type FormattedText {

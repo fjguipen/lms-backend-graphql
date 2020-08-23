@@ -1,4 +1,4 @@
-import { Model } from 'objection';
+import { Model, transaction } from 'objection';
 import {
   Content,
   FormattedText,
@@ -10,7 +10,7 @@ import {
   MutationDeleteContentArgs,
 } from '../../_generated/types';
 import { sortByOrderPosition } from '../commons';
-import { ResolversContext } from '../../types';
+import { ApolloError } from 'apollo-server-core';
 
 export class FormattedTextModel extends Model implements FormattedText {
   static tableName = 'formatted_texts';
@@ -101,20 +101,29 @@ export class ContentModel extends Model implements Content {
     };
   }
   // TODO: sanitize & validations
-  static async create(
-    _,
-    { input }: MutationCreateContentArgs,
-    { session }: ResolversContext
-  ) {
-    const content = await ContentModel.query().insert(input).returning('*');
-    return content;
+  static async create(_, { input }: MutationCreateContentArgs) {
+    const result = await ContentModel.transaction(async (trx) => {
+      const content = await ContentModel.query(trx)
+        .insert(input)
+        .returning('*');
+
+      if (content.type === 'formatted_text') {
+        content.$relatedQuery('text', trx).insert({
+          id: content.id,
+          text: input.text,
+        } as any);
+      } else if (content.type === 'quizz') {
+        //
+      } else {
+        throw new ApolloError('Invalid content type');
+      }
+      return content;
+    });
+
+    return result;
   }
 
-  static async update(
-    _,
-    { input }: MutationUpdateContentArgs,
-    { session }: ResolversContext
-  ) {
+  static async update(_, { input }: MutationUpdateContentArgs) {
     const content = await ContentModel.query()
       .patch(input)
       .where('id', input.id);
@@ -123,15 +132,18 @@ export class ContentModel extends Model implements Content {
 
   static async delete(
     _,
-    { ids }: MutationDeleteContentArgs,
-    { session }: ResolversContext
-  ) {
-    const content = await ContentModel.query().delete().where('id', 'in', ids);
-    return content;
+    { ids }: MutationDeleteContentArgs
+  ): Promise<Content[]> {
+    const result = await ContentModel.query()
+      .delete()
+      .where('id', 'in', ids)
+      .returning('*');
+
+    return result;
   }
 
   static async getOne(_, { id }: QueryContentArgs): Promise<Content> {
-    return await ContentModel.query().findById(id);
+    return ContentModel.query().findById(id);
   }
 
   static async getMany(_, { input }: QueryContentsArgs): Promise<Content[]> {

@@ -105,7 +105,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   createContent?: Maybe<Content>;
   createUser?: Maybe<User>;
-  deleteContent?: Maybe<Content>;
+  deleteContent?: Maybe<Array<Maybe<Content>>>;
   evaluateQuizz?: Maybe<Evaluation>;
   login?: Maybe<CurrentUser>;
   logout?: Maybe<CurrentUser>;

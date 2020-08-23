@@ -15,7 +15,7 @@ export default {
   Mutation: {
     createContent: authorize(ContentModel.create, [ROLES.PROFESSOR]),
     updateContent: authorize(ContentModel.update, [ROLES.PROFESSOR]),
-    deleteContent: () => null,
+    deleteContent: authorize(ContentModel.delete, [ROLES.PROFESSOR]),
   },
   Content: {
     quizz: resolveQuizz,
