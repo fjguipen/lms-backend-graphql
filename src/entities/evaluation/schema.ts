@@ -6,6 +6,10 @@ export default gql`
     evaluations(input: EvaluationFilterInput): [Evaluation]
   }
 
+  type Mutation {
+    evaluateQuizz(input: EvaluateQuizzInput): Evaluation
+  }
+
   type Evaluation {
     id: Int!
     user_id: Int
@@ -20,5 +24,15 @@ export default gql`
     user_id: Int
     quizz_id: Int
     lesson_id: Int
+  }
+
+  input AnswerInput {
+    question_id: Int
+    answer: [String]
+  }
+
+  input EvaluateQuizzInput {
+    quizz_id: Int
+    answers: [AnswerInput]
   }
 `

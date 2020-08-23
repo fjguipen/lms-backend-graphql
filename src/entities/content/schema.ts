@@ -28,7 +28,7 @@ export default gql`
     type: String!
     order_position: Int
     quizz: Quizz
-    text: FormattedText 
+    text: FormattedText
   }
 
   input ContentsFilterInput {
@@ -44,7 +44,7 @@ export default gql`
     text: String
   }
 
-  input UpdateContentInput{
+  input UpdateContentInput {
     id: Int!
     type: String
     questions: [QuestionInput]
@@ -59,4 +59,4 @@ export default gql`
     options: [String]
     are_correct: [Int]
   }
-`
+`;

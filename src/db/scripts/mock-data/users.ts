@@ -30,4 +30,12 @@ export const users: Partial<Student | Professor>[] = [
     password: "student",
     rol: ["std"]
   },
+  {
+    id: 4,
+    name: 'Admin',
+    email: 'user4@user.es',
+    username: "admin",
+    password: "admin",
+    rol: ["adm"]
+  },
 ]

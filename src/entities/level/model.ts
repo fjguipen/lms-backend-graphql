@@ -1,5 +1,5 @@
 import { Model } from 'objection'
-import { Level } from '../../_generated/types';
+import { Level, QueryLevelArgs } from '../../_generated/types';
 
 export class LevelModel extends Model implements Level {
   static tableName = 'levels'
@@ -17,5 +17,13 @@ export class LevelModel extends Model implements Level {
         }
       }
     };
+  }
+
+  static async get(_, { id }:QueryLevelArgs): Promise<Level>{
+    return await LevelModel.query().findById(id)
+  }
+  
+  static async getMany(): Promise<Level[]>{
+    return await LevelModel.query()
   }
 }

@@ -1,12 +1,12 @@
-import { getLesson, getLessons } from "./handlers/get";
 import { resolveContents } from "./handlers/resolve";
 import { authorize } from "../../auth";
 import { ROLES } from "../../auth/types";
+import { LessonModel } from "./model";
 
 export default {
   Query:{
-    lesson: authorize(getLesson, [ROLES.ANY]),
-    lessons: authorize(getLessons, [ROLES.ANY])
+    lesson: authorize(LessonModel.get, [ROLES.ANY]),
+    lessons: authorize(LessonModel.getMany, [ROLES.ANY])
   },
   Lesson:{
     contents: resolveContents

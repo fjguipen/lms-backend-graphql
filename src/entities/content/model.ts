@@ -92,7 +92,7 @@ export class ContentModel extends Model implements Content{
       },
     };
   }
-
+  // TODO: sanitize & validations
   static async create(_, { input }: MutationCreateContentArgs, { session }: ResolversContext){
     const content = await ContentModel.query().insert(input).returning('*')
     return content

@@ -8,6 +8,8 @@ export default gql`
   type Mutation {
     login(input: LoginInput): CurrentUser
     logout: CurrentUser
+    createUser(input: CreateUserInput): User
+    createUser(input: UdateUserInput): User
   }
 
   interface User {
@@ -57,6 +59,24 @@ export default gql`
   }
 
   input LoginInput {
+    username: String
+    password: String
+  }
+
+  input CreateUserInput {
+    name: String
+    surname: String
+    email: String
+    rol: [String]
+    username: String!
+    password: String!
+  }
+
+  input UpdateUserInput {
+    name: String
+    surname: String
+    email: String
+    rol: [String]
     username: String
     password: String
   }

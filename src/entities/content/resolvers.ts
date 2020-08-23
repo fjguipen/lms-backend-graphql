@@ -1,4 +1,3 @@
-import { getContent, getContents } from "./handlers/get";
 import { resolveQuizz, resolveFormattedText, resolveQuestions } from "./handlers/resolve";
 import { authorize } from "../../auth";
 import { ROLES } from "../../auth/types";

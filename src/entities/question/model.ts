@@ -6,6 +6,9 @@ export class QuestionModel extends Model implements Question {
   static tableName = 'questions'
   id: number
   type: string
+  quizz_id: number
+  text: string
+  order_position: number
 
   static get modifiers() {
     return {

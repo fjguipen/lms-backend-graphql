@@ -1,5 +1,5 @@
 import { Model } from 'objection'
-import { BaseUser } from '../../_generated/types';
+import { BaseUser, MutationCreateUserArgs, QueryUserArgs, User } from '../../_generated/types';
 
 export class UserModel extends Model implements BaseUser {
   id: number
@@ -32,5 +32,21 @@ export class UserModel extends Model implements BaseUser {
         }
       },
     }
+  }
+
+  static async get(_, { id }: QueryUserArgs): Promise<User>{
+    const user = await UserModel.query()
+      .where('id', id)
+      .first()
+    
+    return user
+  }
+
+  static async create(_, { input }: MutationCreateUserArgs): Promise<User>{
+    const user = await UserModel.query()
+      .insert(input)
+      .returning('*')
+
+    return user
   }
 }

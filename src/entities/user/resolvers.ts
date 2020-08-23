@@ -1,11 +1,11 @@
 import { logIn, logOut, authorize } from "../../auth";
-import { getUser } from "./handlers/get";
 import { ROLES } from "../../auth/types";
 import { resolveEvaluations } from "./handlers/resolve";
+import { UserModel } from "./model";
 
 export default {
   Query:{
-    user: authorize(getUser, [ROLES.PROFESSOR])
+    user: authorize(UserModel.get, [ROLES.ADMIN, ROLES.PROFESSOR])
   },
   User: {
     __resolveType: (source) => {
@@ -14,13 +14,22 @@ export default {
       } else {
         return 'Student'
       }
-    }
+    },
   },
   Student:{
+    password: () => {
+      return null
+    },
     evaluations: resolveEvaluations,
+  },
+  Professor: {
+    password: () => {
+      return null
+    },
   },
   Mutation: {
     login: logIn,
-    logout: logOut
+    logout: logOut,
+    createUser: authorize(UserModel.create, [ROLES.ADMIN])
   },
 }

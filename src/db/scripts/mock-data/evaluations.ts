@@ -33,7 +33,7 @@ export const evaluations: Evaluation[] = [
     id: 2,
     user_id: 1,
     quizz_id: 2,
-    mark: 4,
+    mark: 3,
     answers: [
       {
         id: 5,
@@ -80,7 +80,7 @@ export const evaluations: Evaluation[] = [
     id: 4,
     user_id: 3,
     quizz_id: 2,
-    mark: 3,
+    mark: 1,
     answers: [
       {
         id: 11,
