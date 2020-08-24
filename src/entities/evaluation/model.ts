@@ -1,5 +1,10 @@
 import { Model } from 'objection';
-import { Evaluation, MutationEvaluateQuizzArgs } from '../../_generated/types';
+import {
+  Evaluation,
+  MutationEvaluateQuizzArgs,
+  QueryEvaluationArgs,
+  QueryEvaluationsArgs,
+} from '../../_generated/types';
 import { ResolversContext } from '../../types';
 import { handleQuizzEvaluation } from './handlers/evaluation';
 
@@ -43,6 +48,21 @@ export class EvaluationModel extends Model implements Evaluation {
         },
       },
     };
+  }
+
+  static async get(_, { id }: QueryEvaluationArgs): Promise<Evaluation> {
+    return EvaluationModel.query().findById(id);
+  }
+
+  static async getMany(
+    _,
+    { input }: QueryEvaluationsArgs
+  ): Promise<Evaluation[]> {
+    return EvaluationModel.query().modify((query) => {
+      for (let key of Object.keys(input)) {
+        query.where(key, input[key]);
+      }
+    });
   }
 
   static async evaluateQuizz(

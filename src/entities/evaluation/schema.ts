@@ -2,7 +2,7 @@ import { gql } from 'apollo-server-core';
 
 export default gql`
   type Query {
-    evaluation(id: Int): Evaluation
+    evaluation(id: Int!): Evaluation
     evaluations(input: EvaluationFilterInput): [Evaluation]
   }
 
@@ -13,17 +13,26 @@ export default gql`
   type Evaluation {
     id: Int!
     user_id: Int
+    author: EvaluationAuthor
     quizz_id: Int
     mark: Int
     success: Boolean
     created: String
     answers: [Answer]
+    quizz: Quizz
+  }
+
+  type EvaluationAuthor {
+    id: Int
+    name: String
+    surname: String
+    username: String
+    email: String
   }
 
   input EvaluationFilterInput {
     user_id: Int
     quizz_id: Int
-    lesson_id: Int
   }
 
   input AnswerInput {

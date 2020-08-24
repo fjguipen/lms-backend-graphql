@@ -10,12 +10,13 @@ export async function resolveQuizz(content: Content) {
   return QuizzModel.query().findById(content.id);
 }
 
-export async function resolveFormattedText(content: Content) {
+export async function resolveFormattedTextValue(content: Content) {
   if (content.type !== 'formatted_text') {
     return null;
   }
 
-  return FormattedTextModel.query().findById(content.id);
+  const formattedText = await FormattedTextModel.query().findById(content.id);
+  return formattedText.value;
 }
 
 export async function resolveQuestions(quizz: Quizz) {

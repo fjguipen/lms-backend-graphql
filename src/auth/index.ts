@@ -39,13 +39,9 @@ export async function logIn(
   return currentUser;
 }
 
-export async function logOut(
-  _,
-  __,
-  ctx: ResolversContext
-): Promise<CurrentUser> {
+export async function logOut(_, __, ctx: ResolversContext): Promise<Boolean> {
   ctx.req.session.destroy(null);
-  return null;
+  return true;
 }
 
 export async function authenticatedSession(
@@ -63,10 +59,10 @@ export async function authenticatedSession(
 }
 
 /**
- * Requester authorization at resolver level
+ * Requester's authorization at resolver level
  * @param fn Resolve function being wrapped by this HOF.
  * @param allowedRoles Array of allowed roles.
- * @param silent Turns off raising errors. Just remove requested data if conditions doesn't meet.
+ * @param silent Turns off raising errors. Just remove requested.
  * Default: false
  */
 export function authorize<T extends ResolverFuncType>(

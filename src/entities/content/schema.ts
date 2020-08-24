@@ -12,23 +12,27 @@ export default gql`
     deleteContent(ids: [Int]): [Content]
   }
 
-  type FormattedText {
-    id: Int!
-    value: String
-  }
-
-  type Quizz {
-    id: Int!
-    questions: [Question]
-  }
-
-  type Content {
+  type FormattedText implements Content {
     id: Int!
     lesson_id: Int
     type: String!
     order_position: Int
-    quizz: Quizz
-    text: FormattedText
+    value: String
+  }
+
+  type Quizz implements Content {
+    id: Int!
+    lesson_id: Int
+    type: String!
+    order_position: Int
+    questions: [Question]
+  }
+
+  interface Content {
+    id: Int!
+    lesson_id: Int
+    type: String!
+    order_position: Int
   }
 
   input ContentsFilterInput {

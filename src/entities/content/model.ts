@@ -12,9 +12,10 @@ import {
 import { sortByOrderPosition } from '../commons';
 import { ApolloError } from 'apollo-server-core';
 
-export class FormattedTextModel extends Model implements FormattedText {
+export class FormattedTextModel extends Model {
   static tableName = 'formatted_texts';
   id: number;
+  value: string;
 
   static get relationMappings() {
     return {
@@ -30,7 +31,7 @@ export class FormattedTextModel extends Model implements FormattedText {
   }
 }
 
-export class QuizzModel extends Model implements Quizz {
+export class QuizzModel extends Model {
   static tableName = 'quizzes';
   id: number;
 
@@ -63,6 +64,10 @@ export class ContentModel extends Model implements Content {
   type: string;
   lesson_id: number;
   order_position: number;
+
+  // static get virtualAttributes(){
+  //   return ['']
+  // }
 
   static get modifiers() {
     return {
