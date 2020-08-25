@@ -49,6 +49,7 @@ export default gql`
     rol: [String]
     evaluations: [Evaluation]
     completed_lessons: [Lesson]
+    viewedContents: [Int]
   }
 
   type CurrentUser {
@@ -56,6 +57,7 @@ export default gql`
     name: String
     username: String
     email: String
+    viewedContents: [Int]
   }
 
   input LoginInput {

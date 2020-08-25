@@ -109,6 +109,7 @@ export type Mutation = {
   evaluateQuizz?: Maybe<Evaluation>;
   login?: Maybe<CurrentUser>;
   logout?: Maybe<Scalars['Boolean']>;
+  setViewedContent?: Maybe<Scalars['Boolean']>;
   updateContent?: Maybe<Content>;
 };
 
@@ -135,6 +136,11 @@ export type MutationEvaluateQuizzArgs = {
 
 export type MutationLoginArgs = {
   input?: Maybe<LoginInput>;
+};
+
+
+export type MutationSetViewedContentArgs = {
+  input?: Maybe<SetViewContentInput>;
 };
 
 
@@ -185,6 +191,10 @@ export type UpdateContentInput = {
   questions?: Maybe<Array<Maybe<CreateQuestionInput>>>;
   lesson_id?: Maybe<Scalars['Int']>;
   text?: Maybe<Scalars['String']>;
+};
+
+export type SetViewContentInput = {
+  content_id?: Maybe<Scalars['Int']>;
 };
 
 export type Evaluation = {
@@ -325,6 +335,7 @@ export type Student = User & {
   rol?: Maybe<Array<Maybe<Scalars['String']>>>;
   evaluations?: Maybe<Array<Maybe<Evaluation>>>;
   completed_lessons?: Maybe<Array<Maybe<Lesson>>>;
+  viewedContents?: Maybe<Array<Maybe<Scalars['Int']>>>;
 };
 
 export type CurrentUser = {
@@ -333,6 +344,7 @@ export type CurrentUser = {
   name?: Maybe<Scalars['String']>;
   username?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
+  viewedContents?: Maybe<Array<Maybe<Scalars['Int']>>>;
 };
 
 export type LoginInput = {

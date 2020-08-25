@@ -10,6 +10,7 @@ export default gql`
     createContent(input: CreateContentInput): Content
     updateContent(input: UpdateContentInput): Content
     deleteContent(ids: [Int!]!): [Int]
+    setViewedContent(input: SetViewContentInput): Boolean
   }
 
   type FormattedText implements Content {
@@ -54,5 +55,9 @@ export default gql`
     lesson_id: Int
     #order_position: Int
     text: String
+  }
+
+  input SetViewContentInput {
+    content_id: Int
   }
 `;

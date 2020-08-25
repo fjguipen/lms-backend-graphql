@@ -1,6 +1,6 @@
 import { logIn, logOut, authorize } from '../../auth';
 import { ROLES } from '../../auth/types';
-import { resolveEvaluations } from './handlers/resolve';
+import { resolveEvaluations, resolveViewedContents } from './handlers/resolve';
 import { UserModel } from './model';
 
 export default {
@@ -21,6 +21,7 @@ export default {
       return null;
     },
     evaluations: resolveEvaluations,
+    viewedContents: resolveViewedContents,
   },
   Professor: {
     password: () => {

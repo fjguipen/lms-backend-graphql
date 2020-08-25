@@ -57,7 +57,7 @@ db()
     user_id         integer,
     content_id      integer,
     created         TIMESTAMP(3)    DEFAULT (now() at time zone 'utc'),
-    PRIMARY KEY(id),
+    PRIMARY KEY(user_id, content_id),
     FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE SET NULL,
     FOREIGN KEY(content_id) REFERENCES contents(id) ON DELETE CASCADE
   );

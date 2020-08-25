@@ -1,8 +1,8 @@
 import { ContentModel } from '../../content/model';
 import { Lesson } from '../../../_generated/types';
-import { checkLessonContentsRequirements } from './requirements';
 import { ResolversContext } from '../../../types';
 import { UserModel } from '../../user/model';
+import { checkContentsRequirements } from '../../content/handlers/requirements';
 
 export async function resolveContents(
   lesson: Lesson,
@@ -16,7 +16,7 @@ export async function resolveContents(
     .modify('sort');
 
   if (!user.rol.includes('prf')) {
-    contents = await checkLessonContentsRequirements(user, contents);
+    contents = await checkContentsRequirements(user, contents);
   }
 
   return contents;

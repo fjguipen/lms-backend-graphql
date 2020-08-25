@@ -8,6 +8,7 @@ import {
   MutationDeleteContentArgs,
   CreateQuestionInput,
   UpdateQuestionInput,
+  MutationSetViewedContentArgs,
 } from '../../_generated/types';
 import { sortByOrderPosition } from '../commons';
 import { ApolloError } from 'apollo-server-core';
@@ -16,6 +17,8 @@ import {
   loadFormattedTextData,
   handleUpdateFormattedText,
 } from './handlers/formattedText';
+import { ResolversContext } from '../../types';
+import { UserModel, UserContentView } from '../user/model';
 
 export class ContentModel extends Model implements Content {
   static tableName = 'contents';
@@ -127,8 +130,34 @@ export class ContentModel extends Model implements Content {
     return result.map((c) => c.id);
   }
 
-  static async getOne(_, { id }: QueryContentArgs): Promise<Content> {
+  static async getOne(
+    _,
+    { id }: QueryContentArgs,
+    { session }: ResolversContext
+  ): Promise<Content> {
     return ContentModel.query().findById(id);
+  }
+
+  static async setViewedContent(
+    _,
+    { input }: MutationSetViewedContentArgs,
+    { session }: ResolversContext
+  ) {
+    const user = await UserModel.query().findById(session.user.id);
+    if (!user.rol.includes('std')) {
+      return false;
+    }
+
+    try {
+      await UserContentView.query().insert({
+        user_id: user.id,
+        content_id: input.content_id,
+      });
+
+      return true;
+    } catch (err) {
+      return false;
+    }
   }
 
   static async getMany(_, { input }: QueryContentsArgs): Promise<Content[]> {

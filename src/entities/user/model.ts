@@ -51,3 +51,33 @@ export class UserModel extends Model implements BaseUser {
     return user;
   }
 }
+
+export class UserContentView extends Model {
+  static tableName = 'content_views';
+  id: number;
+  user_id: number;
+  content_id: number;
+  created: string;
+
+  static get relationMappings() {
+    const { ContentModel } = require('../models');
+    return {
+      user: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: UserModel,
+        join: {
+          from: `${UserContentView.tableName}.user_id`,
+          to: `${UserModel.tableName}.id`,
+        },
+      },
+      content: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: ContentModel,
+        join: {
+          from: `${UserContentView.tableName}.content_id`,
+          to: `${ContentModel.tableName}.id`,
+        },
+      },
+    };
+  }
+}

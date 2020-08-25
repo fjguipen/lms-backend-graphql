@@ -15,6 +15,7 @@ export default {
     createContent: authorize(ContentModel.create, [ROLES.PROFESSOR]),
     updateContent: authorize(ContentModel.update, [ROLES.PROFESSOR]),
     deleteContent: authorize(ContentModel.delete, [ROLES.PROFESSOR]),
+    setViewedContent: ContentModel.setViewedContent,
   },
   Content: {
     __resolveType: (source) => {
