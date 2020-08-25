@@ -9,7 +9,7 @@ export default gql`
   type Mutation {
     createContent(input: CreateContentInput): Content
     updateContent(input: UpdateContentInput): Content
-    deleteContent(ids: [Int]): [Content]
+    deleteContent(ids: [Int!]!): [Int]
   }
 
   type FormattedText implements Content {
@@ -42,7 +42,7 @@ export default gql`
 
   input CreateContentInput {
     type: String!
-    questions: [QuestionInput]
+    questions: [CreateQuestionInput]
     lesson_id: Int!
     order_position: Int
     text: String
@@ -50,17 +50,9 @@ export default gql`
 
   input UpdateContentInput {
     id: Int!
-    type: String
-    questions: [QuestionInput]
+    questions: [CreateQuestionInput]
     lesson_id: Int
-    order_position: Int
+    #order_position: Int
     text: String
-  }
-
-  input QuestionInput {
-    type: String
-    text: String
-    options: [String]
-    are_correct: [Int]
   }
 `;

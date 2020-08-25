@@ -1,12 +1,10 @@
 import {
-  resolveQuizz,
-  resolveQuestions,
+  resolveQuizzQuestions,
   resolveFormattedTextValue,
 } from './handlers/resolve';
 import { authorize } from '../../auth';
 import { ROLES } from '../../auth/types';
 import { ContentModel } from './model';
-import { Content } from '../../_generated/types';
 
 export default {
   Query: {
@@ -19,18 +17,16 @@ export default {
     deleteContent: authorize(ContentModel.delete, [ROLES.PROFESSOR]),
   },
   Content: {
-    // quizz: resolveQuizz,
-    // text: resolveFormattedText,
     __resolveType: (source) => {
-      if (source.type === 'formatted_text') {
+      if (source.type === ContentModel.types.formattedText) {
         return 'FormattedText';
-      } else if (source.type === 'quizz') {
+      } else if (source.type === ContentModel.types.quizz) {
         return 'Quizz';
       }
     },
   },
   Quizz: {
-    questions: resolveQuestions,
+    questions: resolveQuizzQuestions,
   },
   FormattedText: {
     value: resolveFormattedTextValue,

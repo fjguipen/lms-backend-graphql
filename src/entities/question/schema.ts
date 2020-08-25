@@ -25,4 +25,22 @@ export default gql`
   input QuestionFilterInput {
     quizz_id: Int
   }
+
+  input CreateQuestionOptionInput {
+    text: String!
+    is_correct: Boolean
+  }
+
+  input CreateQuestionInput {
+    type: String!
+    text: String!
+    options: [CreateQuestionOptionInput!]
+  }
+
+  input UpdateQuestionInput {
+    id: Int!
+    type: String
+    text: String
+    options: [CreateQuestionOptionInput!]
+  }
 `;

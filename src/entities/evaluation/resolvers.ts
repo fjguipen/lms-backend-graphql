@@ -1,10 +1,10 @@
-import {
-  resolveAnswers,
-  resolveQuizz,
-  resolveAuthor,
-} from './handlers/resolve';
 import { authorize } from '../../auth';
 import { EvaluationModel } from './model';
+import {
+  resolveEvaluationAnswers,
+  resolveEvaluationAuthor,
+  resolveEvaluationQuizz,
+} from './handlers/resolve';
 import { ROLES } from '../../auth/types';
 
 export default {
@@ -16,8 +16,8 @@ export default {
     evaluateQuizz: authorize(EvaluationModel.evaluateQuizz, [ROLES.STUDENT]),
   },
   Evaluation: {
-    answers: resolveAnswers,
-    quizz: resolveQuizz,
-    author: resolveAuthor,
+    answers: resolveEvaluationAnswers,
+    quizz: resolveEvaluationQuizz,
+    author: resolveEvaluationAuthor,
   },
 };

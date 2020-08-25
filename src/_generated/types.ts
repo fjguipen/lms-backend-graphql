@@ -105,7 +105,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   createContent?: Maybe<Content>;
   createUser?: Maybe<User>;
-  deleteContent?: Maybe<Array<Maybe<Content>>>;
+  deleteContent?: Maybe<Array<Maybe<Scalars['Int']>>>;
   evaluateQuizz?: Maybe<Evaluation>;
   login?: Maybe<CurrentUser>;
   logout?: Maybe<Scalars['Boolean']>;
@@ -124,7 +124,7 @@ export type MutationCreateUserArgs = {
 
 
 export type MutationDeleteContentArgs = {
-  ids?: Maybe<Array<Maybe<Scalars['Int']>>>;
+  ids: Array<Scalars['Int']>;
 };
 
 
@@ -174,7 +174,7 @@ export type ContentsFilterInput = {
 
 export type CreateContentInput = {
   type: Scalars['String'];
-  questions?: Maybe<Array<Maybe<QuestionInput>>>;
+  questions?: Maybe<Array<Maybe<CreateQuestionInput>>>;
   lesson_id: Scalars['Int'];
   order_position?: Maybe<Scalars['Int']>;
   text?: Maybe<Scalars['String']>;
@@ -182,18 +182,9 @@ export type CreateContentInput = {
 
 export type UpdateContentInput = {
   id: Scalars['Int'];
-  type?: Maybe<Scalars['String']>;
-  questions?: Maybe<Array<Maybe<QuestionInput>>>;
+  questions?: Maybe<Array<Maybe<CreateQuestionInput>>>;
   lesson_id?: Maybe<Scalars['Int']>;
-  order_position?: Maybe<Scalars['Int']>;
   text?: Maybe<Scalars['String']>;
-};
-
-export type QuestionInput = {
-  type?: Maybe<Scalars['String']>;
-  text?: Maybe<Scalars['String']>;
-  options?: Maybe<Array<Maybe<Scalars['String']>>>;
-  are_correct?: Maybe<Array<Maybe<Scalars['Int']>>>;
 };
 
 export type Evaluation = {
@@ -275,6 +266,24 @@ export type QuestionOption = {
 
 export type QuestionFilterInput = {
   quizz_id?: Maybe<Scalars['Int']>;
+};
+
+export type CreateQuestionOptionInput = {
+  text: Scalars['String'];
+  is_correct?: Maybe<Scalars['Boolean']>;
+};
+
+export type CreateQuestionInput = {
+  type: Scalars['String'];
+  text: Scalars['String'];
+  options?: Maybe<Array<CreateQuestionOptionInput>>;
+};
+
+export type UpdateQuestionInput = {
+  id: Scalars['Int'];
+  type?: Maybe<Scalars['String']>;
+  text?: Maybe<Scalars['String']>;
+  options?: Maybe<Array<CreateQuestionOptionInput>>;
 };
 
 export type User = {

@@ -70,7 +70,7 @@ db()
 
   CREATE TABLE IF NOT EXISTS formatted_texts(
     id              integer,
-    value           text,
+    value           text            NOT NULL,
     PRIMARY KEY(id),
     FOREIGN KEY(id) REFERENCES contents(id) ON DELETE CASCADE
   );
@@ -78,7 +78,7 @@ db()
   CREATE TABLE IF NOT EXISTS questions(
     id              serial,
     quizz_id        integer,
-    text            text,
+    text            text              NOT NULL,
     type            varchar(45),
     order_position           integer,
     PRIMARY KEY(id),
@@ -89,8 +89,8 @@ db()
   CREATE TABLE IF NOT EXISTS options(
     id              serial,
     question_id     integer,
-    text            text,
-    is_correct      boolean,
+    text            text            NOT NULL,
+    is_correct      boolean         default false,
     PRIMARY KEY(id),
     FOREIGN KEY(question_id) REFERENCES questions(id) ON DELETE CASCADE
   );
@@ -110,7 +110,7 @@ db()
       
       IF FOUND THEN
         RAISE EXCEPTION
-          'There is already a correct answer for this question. Simple questions can only have one correct answer';
+          '#dbError: There is already a correct answer for this question. Simple questions can only have one correct answer';
       END IF;
     END IF;
     

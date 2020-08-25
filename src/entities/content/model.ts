@@ -1,16 +1,135 @@
-import { Model, transaction } from 'objection';
+import { Model } from 'objection';
 import {
   Content,
-  FormattedText,
-  Quizz,
   QueryContentArgs,
   MutationCreateContentArgs,
   MutationUpdateContentArgs,
   QueryContentsArgs,
   MutationDeleteContentArgs,
+  CreateQuestionInput,
+  UpdateQuestionInput,
 } from '../../_generated/types';
 import { sortByOrderPosition } from '../commons';
 import { ApolloError } from 'apollo-server-core';
+import { loadQuizzGraphData, handleUpdateQuizz } from './handlers/quizz';
+import {
+  loadFormattedTextData,
+  handleUpdateFormattedText,
+} from './handlers/formattedText';
+
+export class ContentModel extends Model implements Content {
+  static tableName = 'contents';
+  id: number;
+  type: string;
+  lesson_id: number;
+  order_position: number;
+
+  static get modifiers() {
+    return {
+      sort: sortByOrderPosition,
+    };
+  }
+
+  static types = {
+    formattedText: 'formatted_text',
+    quizz: 'quizz',
+  };
+
+  static get relationMappings() {
+    const { LessonModel } = require('../models');
+
+    return {
+      lesson: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: LessonModel,
+        join: {
+          from: `${ContentModel.tableName}.lesson_id`,
+          to: `${LessonModel.tableName}.id`,
+        },
+      },
+      text: {
+        relation: Model.HasOneRelation,
+        modelClass: FormattedTextModel as any,
+        join: {
+          from: `${ContentModel.tableName}.id`,
+          to: `${FormattedTextModel.tableName}.id`,
+        },
+      },
+      quizz: {
+        relation: Model.HasOneRelation,
+        modelClass: QuizzModel as any,
+        join: {
+          from: `${ContentModel.tableName}.id`,
+          to: `${QuizzModel.tableName}.id`,
+        },
+      },
+    };
+  }
+  // TODO: sanitize & validations
+  static async create(_, { input }: MutationCreateContentArgs) {
+    const result = await ContentModel.transaction(async (trx) => {
+      let graph = {
+        type: input.type,
+        lesson_id: input.lesson_id,
+      };
+      if (input.type === ContentModel.types.formattedText) {
+        loadFormattedTextData(input, graph);
+      } else if (input.type === ContentModel.types.quizz) {
+        loadQuizzGraphData(input, graph);
+      }
+      try {
+        const content = await ContentModel.query(trx).insertGraph(graph);
+        return content;
+      } catch (err) {
+        if (err.message.includes('#dbError:')) {
+          throw new ApolloError(err.message.split('#dbError:')[1]);
+        } else {
+          throw new ApolloError(err.message);
+        }
+      }
+    });
+
+    return result;
+  }
+
+  static async update(_, { input }: MutationUpdateContentArgs) {
+    let content = await ContentModel.query().findById(input.id);
+    if (!content) {
+      throw new ApolloError('Content not found');
+    }
+    if (content.type === ContentModel.types.formattedText) {
+      await handleUpdateFormattedText(content, input);
+    } else if (content.type === ContentModel.types.quizz) {
+      await handleUpdateQuizz(content, input);
+    }
+
+    return content;
+  }
+
+  static async delete(
+    _,
+    { ids }: MutationDeleteContentArgs
+  ): Promise<number[]> {
+    const result = await ContentModel.query()
+      .delete()
+      .where('id', 'in', ids)
+      .returning('id');
+
+    return result.map((c) => c.id);
+  }
+
+  static async getOne(_, { id }: QueryContentArgs): Promise<Content> {
+    return ContentModel.query().findById(id);
+  }
+
+  static async getMany(_, { input }: QueryContentsArgs): Promise<Content[]> {
+    return ContentModel.query().modify((query) => {
+      for (let key of Object.keys(input)) {
+        query.where(key, input[key]);
+      }
+    });
+  }
+}
 
 export class FormattedTextModel extends Model {
   static tableName = 'formatted_texts';
@@ -56,105 +175,20 @@ export class QuizzModel extends Model {
       },
     };
   }
-}
 
-export class ContentModel extends Model implements Content {
-  static tableName = 'contents';
-  id: number;
-  type: string;
-  lesson_id: number;
-  order_position: number;
+  static validateQuestionsInput(
+    questions: CreateQuestionInput[] | UpdateQuestionInput[]
+  ) {
+    if (questions.length === 0) {
+      throw new ApolloError('Invalid data: Missing quizz questions');
+    }
 
-  // static get virtualAttributes(){
-  //   return ['']
-  // }
-
-  static get modifiers() {
-    return {
-      sort: sortByOrderPosition,
-    };
-  }
-
-  static get relationMappings() {
-    const { LessonModel } = require('../models');
-
-    return {
-      lesson: {
-        relation: Model.BelongsToOneRelation,
-        modelClass: LessonModel,
-        join: {
-          from: `${ContentModel.tableName}.lesson_id`,
-          to: `${LessonModel.tableName}.id`,
-        },
-      },
-      text: {
-        relation: Model.HasOneRelation,
-        modelClass: FormattedTextModel as any,
-        join: {
-          from: `${ContentModel.tableName}.id`,
-          to: `${FormattedTextModel.tableName}.id`,
-        },
-      },
-      quizz: {
-        relation: Model.HasOneRelation,
-        modelClass: QuizzModel as any,
-        join: {
-          from: `${ContentModel.tableName}.id`,
-          to: `${QuizzModel.tableName}.id`,
-        },
-      },
-    };
-  }
-  // TODO: sanitize & validations
-  static async create(_, { input }: MutationCreateContentArgs) {
-    const result = await ContentModel.transaction(async (trx) => {
-      const content = await ContentModel.query(trx)
-        .insert(input)
-        .returning('*');
-
-      if (content.type === 'formatted_text') {
-        content.$relatedQuery('text', trx).insert({
-          id: content.id,
-          text: input.text,
-        } as any);
-      } else if (content.type === 'quizz') {
-        //
-      } else {
-        throw new ApolloError('Invalid content type');
-      }
-      return content;
-    });
-
-    return result;
-  }
-
-  static async update(_, { input }: MutationUpdateContentArgs) {
-    const content = await ContentModel.query()
-      .patch(input)
-      .where('id', input.id);
-    return content;
-  }
-
-  static async delete(
-    _,
-    { ids }: MutationDeleteContentArgs
-  ): Promise<Content[]> {
-    const result = await ContentModel.query()
-      .delete()
-      .where('id', 'in', ids)
-      .returning('*');
-
-    return result;
-  }
-
-  static async getOne(_, { id }: QueryContentArgs): Promise<Content> {
-    return ContentModel.query().findById(id);
-  }
-
-  static async getMany(_, { input }: QueryContentsArgs): Promise<Content[]> {
-    return ContentModel.query().modify((query) => {
-      for (let key of Object.keys(input)) {
-        query.where(key, input[key]);
+    questions.forEach((q) => {
+      if (
+        !q.text ||
+        (q.type !== 'open' && (!q.options || q.options.length === 0))
+      ) {
+        throw new ApolloError('Invalid data: Missing quizz question options');
       }
     });
   }

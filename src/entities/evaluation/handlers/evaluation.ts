@@ -11,11 +11,9 @@ export async function handleQuizzEvaluation(
   quizz_id: number,
   answers: AnswerInput[]
 ) {
-  const quizz = await ContentModel.query()
-    .findById(quizz_id)
-    .joinRelated('quizz');
+  const quizz = await ContentModel.query().findById(quizz_id);
 
-  if (!quizz) {
+  if (!quizz || quizz.type !== ContentModel.types.quizz) {
     throw new ApolloError('Wrong data');
   }
 
