@@ -3,7 +3,7 @@ import { gql } from 'apollo-server-core';
 export default gql`
   type Query {
     lesson(id: Int): Lesson
-    lessons(input: LessonFilterInput): [Lesson]
+    lessons(input: LessonsFilterInput): [Lesson]
   }
 
   type Lesson {
@@ -15,7 +15,7 @@ export default gql`
     contents: [Content]
   }
 
-  input LessonFilterInput {
+  input LessonsFilterInput {
     level_id: Int
   }
 `;

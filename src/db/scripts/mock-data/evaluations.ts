@@ -75,6 +75,7 @@ export const evaluations: Evaluation[] = [
         value: 'Answer 2',
       },
     ],
+    success: true,
   },
   {
     id: 4,
@@ -103,5 +104,6 @@ export const evaluations: Evaluation[] = [
         value: 'Answer 4',
       },
     ],
+    success: true,
   },
 ];

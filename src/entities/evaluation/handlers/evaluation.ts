@@ -45,10 +45,12 @@ export async function handleQuizzEvaluation(
   if (success) {
     const lastLessonContent = await ContentModel.query()
       .modify('sort', 'DESC')
+      .where('type', ContentModel.types.quizz)
       .where({
         lesson_id: quizz.lesson_id,
       })
       .first();
+
     if (quizz.id === lastLessonContent.id) {
       LessonModel.markAsCompleted(quizz.lesson_id, user_id);
     }

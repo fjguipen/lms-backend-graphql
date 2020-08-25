@@ -2,6 +2,7 @@ import { LessonModel, CompletedLessonModel } from '../model';
 import { UserModel } from '../../user/model';
 import { ApolloError } from 'apollo-server-core';
 import { ContentModel } from '../../content/model';
+import { EvaluationModel } from '../../evaluation/model';
 
 export async function checkLessonRequirements(
   user: UserModel,
@@ -46,21 +47,40 @@ export async function filterLessonsByRequirements(
   return filteredLessons;
 }
 
-export async function checkContentRequirements(
+export async function checkLessonContentsRequirements(
   user: UserModel,
-  content: ContentModel
-): Promise<void> {
-  const prevContent = await ContentModel.query()
-    .modify('sort', 'DESC')
-    .where('order_position', '<', content.order_position)
-    .first();
+  contents: ContentModel[]
+): Promise<ContentModel[]> {
+  const lessonQuizzes = contents.filter(
+    (c) => c.type === ContentModel.types.quizz
+  );
 
-  if (prevContent) {
-    // CHeck if prevContent is completed
-    if (prevContent.type === 'quizz') {
-      // Check if there is succeeded evaluation for this quizz
-    } else if (prevContent.type === 'text') {
-      /// Check if prevContent had been viewed by this student
+  if (lessonQuizzes.length === 0) {
+    return contents;
+  }
+
+  const filteredContents: ContentModel[] = [];
+  const succeededEvaluations = await EvaluationModel.query()
+    .joinRelated('quizz.content')
+    .where('user_id', user.id)
+    .where('success', true)
+    .where(
+      'quizz_id',
+      'in',
+      lessonQuizzes.map((c) => c.id)
+    )
+    .orderBy('quizz:content.order_position', 'DESC');
+
+  for (let i = 0; i < contents.length; i++) {
+    const content = contents[i];
+    filteredContents.push(content);
+    if (
+      content.type === ContentModel.types.quizz &&
+      !succeededEvaluations.find((e) => e.quizz_id === content.id)
+    ) {
+      break;
     }
   }
+
+  return filteredContents;
 }

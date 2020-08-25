@@ -63,7 +63,7 @@ export type QueryLessonArgs = {
 
 
 export type QueryLessonsArgs = {
-  input?: Maybe<LessonFilterInput>;
+  input?: Maybe<LessonsFilterInput>;
 };
 
 
@@ -234,7 +234,7 @@ export type Lesson = {
   contents?: Maybe<Array<Maybe<Content>>>;
 };
 
-export type LessonFilterInput = {
+export type LessonsFilterInput = {
   level_id?: Maybe<Scalars['Int']>;
 };
 

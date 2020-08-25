@@ -66,12 +66,20 @@ export class ContentModel extends Model implements Content {
     };
   }
   // TODO: sanitize & validations
+  // Inserts new content at the end of the lesson's content list
   static async create(_, { input }: MutationCreateContentArgs) {
     const result = await ContentModel.transaction(async (trx) => {
+      const { order_position: lastIndex } = (await ContentModel.query(trx)
+        .where('lesson_id', input.lesson_id)
+        .modify('sort', 'DESC')
+        .first()) || { order_position: 0 };
+
       let graph = {
         type: input.type,
         lesson_id: input.lesson_id,
+        order_position: lastIndex + 1,
       };
+
       if (input.type === ContentModel.types.formattedText) {
         loadFormattedTextData(input, graph);
       } else if (input.type === ContentModel.types.quizz) {
@@ -97,6 +105,7 @@ export class ContentModel extends Model implements Content {
     if (!content) {
       throw new ApolloError('Content not found');
     }
+
     if (content.type === ContentModel.types.formattedText) {
       await handleUpdateFormattedText(content, input);
     } else if (content.type === ContentModel.types.quizz) {
