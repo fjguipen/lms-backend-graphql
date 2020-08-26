@@ -23,7 +23,7 @@ What we need installed in our system:
 
 ### First time deployment
 
-This script will initializate the dabase with the data model and run the server
+This script will **initializate the dabase** with the data model and **start the server**, so you don't need to run any other command unless you stop the containers:
 
 With npm:
 
@@ -37,9 +37,11 @@ With yarn
 yarn deploy:dev
 ```
 
+Go to localhost/gql or open Insomnia
+
 ### Subsequent deployment
 
-With the database already populated we only need to take the container runing
+If we already called deploy:dev previosly, then we only need to take the container runing up:
 
 With npm:
 
@@ -69,7 +71,7 @@ yarn dc:logs
 
 ## About the proyect
 
-This proyect consist in the backend for an API that fulfills the needs of a LMS. We have three different available users: adminers, professors and students, and the actions that they can take over the API are restricted by their roles.
+This proyect is the backend for an API that fulfills the needs of a LMS. We have three different available users: adminers, professors and students, and the actions that they can take over the API are restricted by their roles.
 
 The only pourpse of adminers is to create other users.
 
