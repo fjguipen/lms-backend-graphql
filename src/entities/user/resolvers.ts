@@ -6,6 +6,7 @@ import { UserModel } from './model';
 export default {
   Query: {
     user: authorize(UserModel.get, [ROLES.PROFESSOR]),
+    currentUser: authorize(UserModel.getCurrentUser, [ROLES.ANY]),
   },
   User: {
     __resolveType: (source) => {

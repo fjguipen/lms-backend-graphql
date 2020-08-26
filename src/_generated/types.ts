@@ -21,6 +21,7 @@ export type Query = {
   __typename?: 'Query';
   content?: Maybe<Content>;
   contents?: Maybe<Array<Maybe<Content>>>;
+  currentUser?: Maybe<CurrentUser>;
   evaluation?: Maybe<Evaluation>;
   evaluations?: Maybe<Array<Maybe<Evaluation>>>;
   lesson?: Maybe<Lesson>;
