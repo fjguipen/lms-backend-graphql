@@ -30,6 +30,8 @@ What we need installed in our system:
 
 ### First time deployment
 
+Copy or rename [example.env](example.env) into .env
+
 This script will **initializate the dabase** with the data model and **start the server**, so you don't need to run any other command unless you stop the containers:
 
 With npm:
@@ -44,7 +46,7 @@ With yarn
 yarn deploy:dev
 ```
 
-Go to **_localhost/gql_** or open [**Insomnia**](#Using-de-API).
+Go to **_localhost/gql_** or open [**Insomnia**](#using-the-api).
 
 ### Subsequent deployment
 
@@ -98,7 +100,7 @@ Students can only access lessons if the previous one has been completed. They ar
 
 ## Using the API
 
-There is a ready to import [file](insomnia_import.json) for [Insomnia](https://insomnia.rest/), preloaded with many of the queries and mutations that can be runned against the server. Just import the file and start playing with the api! :rocket:.
+There is a ready to import [file](insomnia_export.json) for [Insomnia](https://insomnia.rest/), preloaded with many of the queries and mutations that can be runned against the server. Just import the file and start playing with the api! :rocket:.
 
 ### Starting point of mocked data
 
