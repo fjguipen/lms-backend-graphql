@@ -2,13 +2,10 @@
 
 ## Table of contents
 
-[Setup](#setup)
-
-[About the proyect](#about-the-proyect)
-
-[Assumptions and Decisions](#assumptions-and-decisions)
-
-[Using the API](#using-the-api)
+- [Setup](#setup)
+- [About the proyect](#about-the-proyect)
+- [Assumptions and Decisions](#assumptions-and-decisions)
+- [Using the API](#using-the-api)
 
 ## Setup
 
