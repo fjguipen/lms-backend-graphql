@@ -9,10 +9,16 @@ export type Scalars = {
   Float: number;
 };
 
+export type Answer = {
+  __typename?: 'Answer';
+  id: Scalars['Int'];
+  question_id?: Maybe<Scalars['Int']>;
+  evaluation_id?: Maybe<Scalars['Int']>;
+  value?: Maybe<Scalars['String']>;
+};
+
 export type Query = {
   __typename?: 'Query';
-  answer?: Maybe<Answer>;
-  answers?: Maybe<Array<Maybe<Answer>>>;
   content?: Maybe<Content>;
   contents?: Maybe<Array<Maybe<Content>>>;
   evaluation?: Maybe<Evaluation>;
@@ -27,18 +33,8 @@ export type Query = {
 };
 
 
-export type QueryAnswerArgs = {
-  id?: Maybe<Scalars['Int']>;
-};
-
-
-export type QueryAnswersArgs = {
-  iput?: Maybe<AnswerFilterInput>;
-};
-
-
 export type QueryContentArgs = {
-  id?: Maybe<Scalars['Int']>;
+  id: Scalars['Int'];
 };
 
 
@@ -58,7 +54,7 @@ export type QueryEvaluationsArgs = {
 
 
 export type QueryLessonArgs = {
-  id?: Maybe<Scalars['Int']>;
+  id: Scalars['Int'];
 };
 
 
@@ -68,12 +64,12 @@ export type QueryLessonsArgs = {
 
 
 export type QueryLevelArgs = {
-  id?: Maybe<Scalars['Int']>;
+  id: Scalars['Int'];
 };
 
 
 export type QueryQuestionArgs = {
-  id?: Maybe<Scalars['Int']>;
+  id: Scalars['Int'];
 };
 
 
@@ -86,41 +82,34 @@ export type QueryUserArgs = {
   id: Scalars['Int'];
 };
 
-export type Answer = {
-  __typename?: 'Answer';
-  id: Scalars['Int'];
-  question_id?: Maybe<Scalars['Int']>;
-  evaluation_id?: Maybe<Scalars['Int']>;
-  value?: Maybe<Scalars['String']>;
-};
-
-export type AnswerFilterInput = {
-  quizz_id?: Maybe<Scalars['Int']>;
-  question_id?: Maybe<Scalars['Int']>;
-  user_id?: Maybe<Scalars['Int']>;
-  evaluation_id?: Maybe<Scalars['Int']>;
-};
-
 export type Mutation = {
   __typename?: 'Mutation';
   createContent?: Maybe<Content>;
+  createLesson?: Maybe<Lesson>;
   createUser?: Maybe<User>;
   deleteContent?: Maybe<Array<Maybe<Scalars['Int']>>>;
+  deleteLesson?: Maybe<Array<Maybe<Scalars['Int']>>>;
   evaluateQuizz?: Maybe<Evaluation>;
   login?: Maybe<CurrentUser>;
   logout?: Maybe<Scalars['Boolean']>;
   setViewedContent?: Maybe<Scalars['Boolean']>;
   updateContent?: Maybe<Content>;
+  updateLesson?: Maybe<Lesson>;
 };
 
 
 export type MutationCreateContentArgs = {
-  input?: Maybe<CreateContentInput>;
+  input: CreateContentInput;
+};
+
+
+export type MutationCreateLessonArgs = {
+  input?: Maybe<CreateLessonInput>;
 };
 
 
 export type MutationCreateUserArgs = {
-  input?: Maybe<CreateUserInput>;
+  input: CreateUserInput;
 };
 
 
@@ -129,23 +118,33 @@ export type MutationDeleteContentArgs = {
 };
 
 
+export type MutationDeleteLessonArgs = {
+  ids: Array<Scalars['Int']>;
+};
+
+
 export type MutationEvaluateQuizzArgs = {
-  input?: Maybe<EvaluateQuizzInput>;
+  input: EvaluateQuizzInput;
 };
 
 
 export type MutationLoginArgs = {
-  input?: Maybe<LoginInput>;
+  input: LoginInput;
 };
 
 
 export type MutationSetViewedContentArgs = {
-  input?: Maybe<SetViewContentInput>;
+  input: SetViewContentInput;
 };
 
 
 export type MutationUpdateContentArgs = {
-  input?: Maybe<UpdateContentInput>;
+  input: UpdateContentInput;
+};
+
+
+export type MutationUpdateLessonArgs = {
+  input?: Maybe<UpdateLessonInput>;
 };
 
 export type FormattedText = Content & {
@@ -194,7 +193,7 @@ export type UpdateContentInput = {
 };
 
 export type SetViewContentInput = {
-  content_id?: Maybe<Scalars['Int']>;
+  content_id: Scalars['Int'];
 };
 
 export type Evaluation = {
@@ -248,12 +247,24 @@ export type LessonsFilterInput = {
   level_id?: Maybe<Scalars['Int']>;
 };
 
+export type CreateLessonInput = {
+  title: Scalars['String'];
+  level_id: Scalars['Int'];
+  description: Scalars['String'];
+};
+
+export type UpdateLessonInput = {
+  id: Scalars['Int'];
+  title?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+};
+
 export type Level = {
   __typename?: 'Level';
   id: Scalars['Int'];
   title?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
-  lessons?: Maybe<Array<Lesson>>;
+  lessons?: Maybe<Array<Maybe<Lesson>>>;
 };
 
 export type Question = {

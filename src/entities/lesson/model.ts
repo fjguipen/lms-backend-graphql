@@ -3,6 +3,9 @@ import {
   Lesson,
   QueryLessonArgs,
   QueryLessonsArgs,
+  MutationCreateLessonArgs,
+  MutationUpdateLessonArgs,
+  MutationDeleteLessonArgs,
 } from '../../_generated/types';
 import { sortByOrderPosition } from '../commons';
 import { ResolversContext } from '../../types';
@@ -82,6 +85,36 @@ export class LessonModel extends Model implements Lesson {
     }
 
     return lessons;
+  }
+
+  static async createLesson(
+    _,
+    { input }: MutationCreateLessonArgs
+  ): Promise<Lesson> {
+    const { order_position: lastIndex } = (await LessonModel.query()
+      .where('level_id', input.level_id)
+      .modify('sort', 'DESC')
+      .first()) || { order_position: null };
+
+    input['order_position'] = (lastIndex !== null && lastIndex + 1) || 0;
+    return LessonModel.query().insert(input);
+  }
+
+  static updateLesson(_, { input }: MutationUpdateLessonArgs): Promise<Lesson> {
+    const { id, ...data } = input;
+    return LessonModel.query().patchAndFetchById(id, data);
+  }
+
+  static async deleteLesson(
+    _,
+    { ids }: MutationDeleteLessonArgs
+  ): Promise<number[]> {
+    const result = await LessonModel.query()
+      .delete()
+      .where('id', 'in', ids)
+      .returning('id');
+
+    return result.map((row) => row.id);
   }
 
   static async markAsCompleted(lessonId: number, userId: number) {

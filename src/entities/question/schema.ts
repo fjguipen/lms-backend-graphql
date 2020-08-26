@@ -2,7 +2,7 @@ import { gql } from 'apollo-server-core';
 
 export default gql`
   type Query {
-    question(id: Int): Question
+    question(id: Int!): Question
     questions(input: QuestionFilterInput): [Question]
   }
 

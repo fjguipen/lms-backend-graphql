@@ -11,4 +11,9 @@ export default {
   Lesson: {
     contents: resolveContents,
   },
+  Mutation: {
+    createLesson: authorize(LessonModel.createLesson, [ROLES.PROFESSOR]),
+    updateLesson: authorize(LessonModel.updateLesson, [ROLES.PROFESSOR]),
+    deleteLesson: authorize(LessonModel.deleteLesson, [ROLES.PROFESSOR]),
+  },
 };

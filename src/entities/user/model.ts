@@ -45,6 +45,7 @@ export class UserModel extends Model implements BaseUser {
     return user;
   }
 
+  // TODO: validations
   static async create(_, { input }: MutationCreateUserArgs): Promise<User> {
     const user = await UserModel.query().insert(input).returning('*');
 
