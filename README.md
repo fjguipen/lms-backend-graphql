@@ -1,5 +1,15 @@
 # Z1 senior backend - Learning Management System
 
+## Table of contents
+
+[Setup](#setup)
+
+[About the proyect](#about-the-proyect)
+
+[Assumptions and Decisions](#assumptions-and-decisions)
+
+[Using the API](#using-the-api)
+
 ## Setup
 
 Deployment is based entirely on docker. We use docker to set up the instances for 3 different servcices:
@@ -37,7 +47,7 @@ With yarn
 yarn deploy:dev
 ```
 
-Go to localhost/gql or open Insomnia
+Go to **_localhost/gql_** or open [**Insomnia**](#Using-de-API).
 
 ### Subsequent deployment
 
@@ -79,7 +89,7 @@ Professors can manipulate all contents in the system, creating lessons with dife
 
 Students can only access lessons if the previous one has been completed. They are the most restricted user, they can only acces contents through lessons and they need to take and pass the quizzes to gain access for contents that are beyond those quizzes.
 
-## Assumptions and decisions
+## Assumptions and Decisions
 
 - Contents are added sequentially and can't be re-ordered at this point.
 - User content views registration is called by specific mutation for that pourpose.
@@ -89,7 +99,7 @@ Students can only access lessons if the previous one has been completed. They ar
 - There is no validations neither sanitize apart from graphql types.
 - Text Content: The text formatting will be HTML markup so it's stored as plain string.
 
-## Using de API
+## Using the API
 
 There is a ready to import [file](insomnia_import.json) for [Insomnia](https://insomnia.rest/), preloaded with many of the queries and mutations that can be runned against the server. Just import the file and start playing with the api! :rocket:.
 
@@ -100,4 +110,4 @@ The database is seeded with 3 levels (**"Básico"**[id1], **"Intermedio"**[id2] 
 There are also 4 user, **student1**[id1], **professor**[id2] **student2**[id3] and **"admin"**[id4].
 "student1" has completed the **"Lesson A"**[id1] (from Level "Básico") and have acces to the **"Lesson B"**[id2] of the same level.
 
-In the other hand, "student2" has not yet finished the "Lesson A" and he have to take the last quizz to unlock the rest of contents of the "Lesson A" and to start the "Lesson B". (You can login as "student2" and run TakeQuizz mutation to gain access past "Lesson A" on "student2". All needed mutations and queries are setted on **Insomnia**)
+In the other hand, "student2" has not finished the "Lesson A" yet and he must take and pass the last quizz to unlock the rest of contents of the "Lesson A" and get the "Lesson B" available. (You can login as "student2" and run TakeQuizz mutation to gain access past "Lesson A" on "student2". All needed mutations and queries are setted on **Insomnia**)
