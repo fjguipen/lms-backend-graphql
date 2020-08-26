@@ -148,6 +148,23 @@ export const contents: ContentSeed[] = [
     },
     lesson_id: 1,
     order_position: 3,
+  },{
+    id: 7,
+    type: 'formatted_text',
+    text: {
+      value: `<p>Text</p><img src="url"/><p>Text</p>`,
+    },
+    lesson_id: 1,
+    order_position: 4,
+  },
+  {
+    id: 8,
+    type: 'formatted_text',
+    text: {
+      value: `<p>Text</p><img src="url"/><p>Text</p>`,
+    },
+    lesson_id: 1,
+    order_position: 5,
   },
   {
     id: 5,

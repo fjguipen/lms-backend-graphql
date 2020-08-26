@@ -19,8 +19,10 @@
     "start": "node build/src/server.js",
     "build-watch": "tsc -w --preserveWatchOutput",
     "serve-dev": "nodemon -r source-map-support/register --watch build ./build/server.js",
+    "serve": "node -r source-map-support/register ./build/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npm run clean && tsc && concurrently \"npm run generate:watch\" \"npm run build-watch\" \"npm run serve-dev\"",
+    "preview": "npm run clean && tsc && npm run generate && npm run serve",
     "deploy:dev": "npm run db-tools:build && npm run dc:up && npm run db-tools:init && npm run db-tools:seed",
     "tsc": "tsc"
   },
