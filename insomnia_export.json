@@ -1,0 +1,967 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2020-08-26T15:57:25.148Z",
+  "__export_source": "insomnia.desktop.app:v2020.3.3",
+  "resources": [
+    {
+      "_id": "req_f30dffa17553441cac8ce703e2690c3a",
+      "authentication": {},
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"query($id: Int!){\\n  level(id: $id){\\n    id\\n    title\\n    description\\n    lessons {\\n      id\\n      title\\n      contents {\\n        id\\n      }\\n    }\\n  }\\n}\",\"variables\":{\"id\":1}}"
+      },
+      "created": 1598453719027,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_e42fcfcf1f774442969e006ad4097e3c",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1598365258673.2812,
+      "method": "POST",
+      "modified": 1598455757739,
+      "name": "GetOne",
+      "parameters": [],
+      "parentId": "fld_3d42fe2b493b4023bf34235c82507be6",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ api }}",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_3d42fe2b493b4023bf34235c82507be6",
+      "created": 1598453714061,
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1598453714061,
+      "modified": 1598453714061,
+      "name": "Level",
+      "parentId": "wrk_6d09bbafea0a4788afddc506ff7c4dd2",
+      "_type": "request_group"
+    },
+    {
+      "_id": "wrk_6d09bbafea0a4788afddc506ff7c4dd2",
+      "created": 1598282360361,
+      "description": "",
+      "modified": 1598282381029,
+      "name": "Z1 Backend API (LMS)",
+      "parentId": null,
+      "scope": null,
+      "_type": "workspace"
+    },
+    {
+      "_id": "req_63f87b8dd8ff4912abf8c079bb9b7fc3",
+      "authentication": {},
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"query{\\n  levels{\\n    id\\n    title\\n    description\\n    lessons {\\n      id\\n      title\\n      contents {\\n        id\\n      }\\n    }\\n  }\\n}\"}"
+      },
+      "created": 1598453975160,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_e42fcfcf1f774442969e006ad4097e3c",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1598359566737.9219,
+      "method": "POST",
+      "modified": 1598455761490,
+      "name": "GetMany",
+      "parameters": [],
+      "parentId": "fld_3d42fe2b493b4023bf34235c82507be6",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ api }}",
+      "_type": "request"
+    },
+    {
+      "_id": "req_f382f39d9fb14c1b8f0adf0ca67fe34b",
+      "authentication": {},
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"query($id: Int!){\\n  lesson(id: $id){\\n    id\\n    id\\n    description\\n    contents{\\n      id\\n      type \\n      ... on Quizz{\\n         questions {\\n          id  \\n          options {\\n            text\\n            is_correct\\n          }   \\n        }\\n      }\\n      ... on FormattedText {\\n        value\\n      }\\n    }\\n  }\\n}\",\"variables\":{\"id\":1}}"
+      },
+      "created": 1598376651562,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_e42fcfcf1f774442969e006ad4097e3c",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1598353874802.5625,
+      "method": "POST",
+      "modified": 1598455767659,
+      "name": "GetOne",
+      "parameters": [],
+      "parentId": "fld_c1ac0a704689468680e29426c2195402",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ api }}",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_c1ac0a704689468680e29426c2195402",
+      "created": 1598376642494,
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1598376642494,
+      "modified": 1598376642494,
+      "name": "Lesson",
+      "parentId": "wrk_6d09bbafea0a4788afddc506ff7c4dd2",
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_6153f6961cd14768993d5e259b66a477",
+      "authentication": {},
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"query($input: LessonsFilterInput){\\n  lessons(input: $input){\\n    id\\n    id\\n    description\\n    contents{\\n      id\\n      type \\n      ... on Quizz{\\n         questions {\\n          id  \\n          options {\\n            text\\n            is_correct\\n          }   \\n        }\\n      }\\n      ... on FormattedText {\\n        value\\n      }\\n    }\\n  }\\n}\",\"variables\":{\"input\":{\"level_id\":1}}}"
+      },
+      "created": 1598384082800,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_e42fcfcf1f774442969e006ad4097e3c",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1598319723240.4062,
+      "method": "POST",
+      "modified": 1598455959684,
+      "name": "GetMany",
+      "parameters": [],
+      "parentId": "fld_c1ac0a704689468680e29426c2195402",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ api }}",
+      "_type": "request"
+    },
+    {
+      "_id": "req_4ae9f4914d87433baf6b8f5ed42b83d0",
+      "authentication": {},
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"mutation($input: CreateLessonInput){\\n  createLesson(input: $input){\\n    id\\n    title\\n    description\\n  }\\n}\",\"variables\":{\"input\":{\"title\":\"Título\",\"level_id\":3,\"description\":\"Description\"}}}"
+      },
+      "created": 1598452099243,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_e42fcfcf1f774442969e006ad4097e3c",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1598319723190.4062,
+      "method": "POST",
+      "modified": 1598453319433,
+      "name": "CreateLesson",
+      "parameters": [],
+      "parentId": "fld_c1ac0a704689468680e29426c2195402",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ api }}",
+      "_type": "request"
+    },
+    {
+      "_id": "req_0dc64cb8bf0b40a58da919e5aa49516b",
+      "authentication": {},
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"mutation($input: UpdateLessonInput){\\n  updateLesson(input: $input){\\n    id\\n    title\\n    description\\n  }\\n}\",\"variables\":{\"input\":{\"id\":10,\"title\":\"Título2\",\"description\":\"Description\"}}}"
+      },
+      "created": 1598453094344,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_e42fcfcf1f774442969e006ad4097e3c",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1598302647434.3281,
+      "method": "POST",
+      "modified": 1598453322189,
+      "name": "UpdateLesson",
+      "parameters": [],
+      "parentId": "fld_c1ac0a704689468680e29426c2195402",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ api }}",
+      "_type": "request"
+    },
+    {
+      "_id": "req_d7a4a87e6c944918a2cbcd63277df361",
+      "authentication": {},
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"mutation($ids: [Int!]!){\\n  deleteLesson(ids: $ids)\\n}\",\"variables\":{\"ids\":[11,12,13,14,15]}}"
+      },
+      "created": 1598453138071,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_e42fcfcf1f774442969e006ad4097e3c",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1598294109556.289,
+      "method": "POST",
+      "modified": 1598453304789,
+      "name": "DeleteLesson",
+      "parameters": [],
+      "parentId": "fld_c1ac0a704689468680e29426c2195402",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ api }}",
+      "_type": "request"
+    },
+    {
+      "_id": "req_4dc58a9b6112414085676b4c3db77a10",
+      "authentication": {},
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"query($id: Int!){\\n  content(id: $id){\\n    id\\n    type \\n    ... on Quizz{\\n       questions {\\n        id  \\n        options {\\n          text\\n          is_correct\\n        }   \\n      }\\n    }\\n    ... on FormattedText {\\n      value\\n    }\\n  }\\n}\",\"variables\":{\"id\":1}}"
+      },
+      "created": 1598285630535,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_e42fcfcf1f774442969e006ad4097e3c",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1598285571678.25,
+      "method": "POST",
+      "modified": 1598455772790,
+      "name": "GetOne",
+      "parameters": [],
+      "parentId": "fld_1ae2d869161e422298402211997fc829",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ api }}",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_1ae2d869161e422298402211997fc829",
+      "created": 1598285622293,
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1598285622293,
+      "modified": 1598285671152,
+      "name": "Content",
+      "parentId": "wrk_6d09bbafea0a4788afddc506ff7c4dd2",
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_fc0eb9d6f33141b587a7ac8ef6a54e02",
+      "authentication": {},
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"query($input: ContentsFilterInput){\\n  contents(input: $input){\\n    id\\n    type \\n    ... on Quizz{\\n       questions {\\n        id  \\n        options {\\n          text\\n          is_correct\\n        }   \\n      }\\n    }\\n    ... on FormattedText {\\n      value\\n    }\\n  }\\n}\",\"variables\":{\"input\":{\"lesson_id\":1}}}"
+      },
+      "created": 1598377903374,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_e42fcfcf1f774442969e006ad4097e3c",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1598285533704.6875,
+      "method": "POST",
+      "modified": 1598455770410,
+      "name": "GetMany",
+      "parameters": [],
+      "parentId": "fld_1ae2d869161e422298402211997fc829",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ api }}",
+      "_type": "request"
+    },
+    {
+      "_id": "req_50ba3e4f990c4db0a43dd226d4659d04",
+      "authentication": {},
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"mutation($input: CreateContentInput!){\\n  createContent(input: $input){\\n    id\\n    type \\n    ... on Quizz{\\n       questions {\\n        id  \\n      }\\n    }\\n    ... on FormattedText {\\n      value\\n    }\\n  }\\n}\",\"variables\":{\"input\":{\"type\":\"formatted_text\",\"lesson_id\":1,\"text\":\"Prueba de contenido B\"}}}"
+      },
+      "created": 1598365772767,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_e42fcfcf1f774442969e006ad4097e3c",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1598285495731.125,
+      "method": "POST",
+      "modified": 1598453440861,
+      "name": "CreateFormattedText",
+      "parameters": [],
+      "parentId": "fld_1ae2d869161e422298402211997fc829",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ api }}",
+      "_type": "request"
+    },
+    {
+      "_id": "req_b64c16cda8ef494b84ecdfa50bbc2b4c",
+      "authentication": {},
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"mutation($input: CreateContentInput!){\\n  createContent(input: $input){\\n    id\\n    type \\n    ... on Quizz{\\n       questions {\\n        id \\n        options {\\n          text\\n          is_correct\\n        }        \\n      }\\n    }\\n    ... on FormattedText {\\n      value\\n    }\\n  }\\n}\",\"variables\":{\"input\":{\"type\":\"quizz\",\"lesson_id\":2,\"questions\":[{\"type\":\"simple\",\"text\":\"Prueba texto pregunta 1\",\"options\":[{\"text\":\"Opcion 1\"},{\"text\":\"Opcion 2\",\"is_correct\":true},{\"text\":\"Opcion 3\"}]},{\"type\":\"multiple\",\"text\":\"Prueba texto pregunta 2\",\"options\":[{\"text\":\"Opcion 1\",\"is_correct\":true},{\"text\":\"Opcion 2\",\"is_correct\":true},{\"text\":\"Opcion 3\"}]},{\"type\":\"open\",\"text\":\"Prueba texto pregunta 3\"}]}}}"
+      },
+      "created": 1598366458604,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_e42fcfcf1f774442969e006ad4097e3c",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1598285457757.5625,
+      "method": "POST",
+      "modified": 1598453443269,
+      "name": "CreateQuizz",
+      "parameters": [],
+      "parentId": "fld_1ae2d869161e422298402211997fc829",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ api }}",
+      "_type": "request"
+    },
+    {
+      "_id": "req_5fe17b6b35694fbcb0eaa44d1b12a571",
+      "authentication": {},
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"mutation($input: UpdateContentInput!){\\n  updateContent(input: $input){\\n    id\\n    type \\n    ... on Quizz{\\n       questions {\\n        id\\n        text\\n        options {\\n          id\\n          text\\n          is_correct\\n        }        \\n      }\\n    }\\n    ... on FormattedText {\\n      value\\n    }\\n  }\\n}\",\"variables\":{\"input\":{\"id\":4,\"questions\":[{\"type\":\"simple\",\"text\":\"Prueba texto pregunta 1\",\"options\":[{\"text\":\"Opcion 1\"},{\"text\":\"Opcion 2\",\"is_correct\":true},{\"text\":\"Opcion 3\"}]},{\"type\":\"simple\",\"text\":\"Prueba texto pregunta 1\",\"options\":[{\"text\":\"Opcion 1\"},{\"text\":\"Opcion 2\",\"is_correct\":true},{\"text\":\"Opcion 3\"}]}]}}}"
+      },
+      "created": 1598374435462,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_e42fcfcf1f774442969e006ad4097e3c",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1598285448264.1719,
+      "method": "POST",
+      "modified": 1598453446234,
+      "name": "UpdateQuizz",
+      "parameters": [],
+      "parentId": "fld_1ae2d869161e422298402211997fc829",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ api }}",
+      "_type": "request"
+    },
+    {
+      "_id": "req_b4a1dbf611a5461da59b4d3fb11ce897",
+      "authentication": {},
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"mutation($input: UpdateContentInput!){\\n  updateContent(input: $input){\\n    id\\n    type \\n    ... on Quizz{\\n       questions {\\n        id\\n        text\\n        options {\\n          id\\n          text\\n          is_correct\\n        }        \\n      }\\n    }\\n    ... on FormattedText {\\n      value\\n    }\\n  }\\n}\",\"variables\":{\"input\":{\"id\":7,\"text\":\"Texto cambiado\"}}}"
+      },
+      "created": 1598376326630,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_e42fcfcf1f774442969e006ad4097e3c",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1598285443517.4766,
+      "method": "POST",
+      "modified": 1598453448442,
+      "name": "UpdateFormattedText",
+      "parameters": [],
+      "parentId": "fld_1ae2d869161e422298402211997fc829",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ api }}",
+      "_type": "request"
+    },
+    {
+      "_id": "req_7ad2ff7eccaf43858cc24e97a9748c97",
+      "authentication": {},
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"mutation($ids: [Int!]!){\\n  deleteContent(ids: $ids)\\n}\",\"variables\":{\"ids\":[12,15]}}"
+      },
+      "created": 1598371451280,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_e42fcfcf1f774442969e006ad4097e3c",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1598285438770.7812,
+      "method": "POST",
+      "modified": 1598453452362,
+      "name": "DeleteContent",
+      "parameters": [],
+      "parentId": "fld_1ae2d869161e422298402211997fc829",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ api }}",
+      "_type": "request"
+    },
+    {
+      "_id": "req_78f3853b84e14b088f621f66f93d296e",
+      "authentication": {},
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"mutation($input: SetViewContentInput!){\\n  setViewedContent(input: $input)\\n}\",\"variables\":{\"input\":{\"content_id\":3}}}"
+      },
+      "created": 1598388128396,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_e42fcfcf1f774442969e006ad4097e3c",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1598285429277.3906,
+      "method": "POST",
+      "modified": 1598453451285,
+      "name": "setViewedContent",
+      "parameters": [],
+      "parentId": "fld_1ae2d869161e422298402211997fc829",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ api }}",
+      "_type": "request"
+    },
+    {
+      "_id": "req_de8ba55e907347569a2adbe4d78fd7ef",
+      "authentication": {},
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"mutation ($input: EvaluateQuizzInput!){\\n  evaluateQuizz(input: $input){\\n    id\\n    mark\\n    success \\n  }\\n}\",\"variables\":{\"input\":{\"quizz_id\":4,\"answers\":[{\"question_id\":5,\"answer\":\"9\"},{\"question_id\":6,\"answer\":\"10\"}]}}}"
+      },
+      "created": 1598285419784,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_700c4a8158be4e7eb4579a92cfafe740",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1598285419784,
+      "method": "POST",
+      "modified": 1598455109250,
+      "name": "TakeQuizz (Evaluate)",
+      "parameters": [],
+      "parentId": "fld_7e4f73e022fc4e61b9cb8e59e677be50",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ api }}",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_7e4f73e022fc4e61b9cb8e59e677be50",
+      "created": 1598283749359,
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1598283749359,
+      "modified": 1598283749359,
+      "name": "Evaluations",
+      "parentId": "wrk_6d09bbafea0a4788afddc506ff7c4dd2",
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_49a9bfbbf05946aaa7500e66638212c0",
+      "authentication": {},
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"query($id: Int!){\\n  evaluation(id: $id){\\n    id\\n    mark\\n    success\\n    created\\n    author{\\n      username\\n    }\\n    answers {\\n      id\\n      question_id\\n      value \\n    }\\n    quizz {\\n      id\\n      questions {\\n        id\\n        text\\n      }\\n    }\\n  }\\n}\",\"variables\":{\"id\":1}}"
+      },
+      "created": 1598283796799,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_e42fcfcf1f774442969e006ad4097e3c",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1598283758993,
+      "method": "POST",
+      "modified": 1598455105571,
+      "name": "GetOne",
+      "parameters": [],
+      "parentId": "fld_7e4f73e022fc4e61b9cb8e59e677be50",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ api }}",
+      "_type": "request"
+    },
+    {
+      "_id": "req_5c2eb32236104277ba01b7b445836861",
+      "authentication": {},
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"query($input: EvaluationFilterInput){\\n  evaluations(input: $input){\\n    id\\n    mark\\n    success\\n    created\\n    author{\\n      username\\n    }\\n    answers {\\n      id\\n      question_id\\n      value \\n    }\\n    quizz {\\n      id\\n      questions {\\n        id\\n        text\\n      }\\n    }\\n  }\\n}\",\"variables\":{\"input\":{\"user_id\":1}}}"
+      },
+      "created": 1598284138990,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_e42fcfcf1f774442969e006ad4097e3c",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1598283754201,
+      "method": "POST",
+      "modified": 1598455107250,
+      "name": "GetMany",
+      "parameters": [],
+      "parentId": "fld_7e4f73e022fc4e61b9cb8e59e677be50",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ api }}",
+      "_type": "request"
+    },
+    {
+      "_id": "req_95f1022924a34800a7805dbf8f56603e",
+      "authentication": {},
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"{\\n  currentUser{\\n    id\\n    name\\n    username\\n    email\\n  }\\n}\"}"
+      },
+      "created": 1598453337487,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_45b517daf93e472db8033eea3151b101",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1598453337487,
+      "method": "POST",
+      "modified": 1598455103325,
+      "name": "CurrentUser",
+      "parameters": [],
+      "parentId": "fld_508f918d7ce3429ea38e9011ee6533b1",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ api }}",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_508f918d7ce3429ea38e9011ee6533b1",
+      "created": 1598282390609,
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1598282390609,
+      "modified": 1598282390609,
+      "name": "User",
+      "parentId": "wrk_6d09bbafea0a4788afddc506ff7c4dd2",
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_64f64ac3eb734f8b9dc1006f3bbff776",
+      "authentication": {},
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"query($id: Int!){\\n  user(id: $id){\\n    id\\n    name\\n    username\\n    email\\n    rol\\n    ... on Student{\\n      viewedContents\\n      evaluations {\\n        id\\n        mark\\n        quizz{\\n          id\\n          questions{\\n            id\\n            text\\n          }\\n        }\\n        answers{\\n          question_id\\n          value\\n        }\\n        success\\n      }\\n    }\\n  }\\n}\",\"variables\":{\"id\":1}}"
+      },
+      "created": 1598282690962,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_e42fcfcf1f774442969e006ad4097e3c",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1598282592816,
+      "method": "POST",
+      "modified": 1598454996111,
+      "name": "GetOne",
+      "parameters": [],
+      "parentId": "fld_508f918d7ce3429ea38e9011ee6533b1",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ api }}",
+      "_type": "request"
+    },
+    {
+      "_id": "req_d0416be098d643cc939c675b02b0da7b",
+      "authentication": {},
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"mutation($input: CreateUserInput!){\\n  createUser(input: $input){\\n    id\\n    name\\n    username\\n    email\\n    rol\\n    ... on Student{\\n      viewedContents\\n      evaluations {\\n        id\\n        mark\\n        quizz{\\n          id\\n          questions{\\n            id\\n            text\\n          }\\n        }\\n        answers{\\n          question_id\\n          value\\n        }\\n        success\\n      }\\n    }\\n  }\\n}\",\"variables\":{\"input\":{\"name\":\"Nombre\",\"surname\":\"Apellidos\",\"email\":\"test@email.es\",\"username\":\"professor2\",\"password\":\"professor\",\"rol\":[\"prf\"]}}}"
+      },
+      "created": 1598450359038,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_e42fcfcf1f774442969e006ad4097e3c",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1598282592812.875,
+      "method": "POST",
+      "modified": 1598454812631,
+      "name": "Create",
+      "parameters": [],
+      "parentId": "fld_508f918d7ce3429ea38e9011ee6533b1",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ api }}",
+      "_type": "request"
+    },
+    {
+      "_id": "req_fd56e71c8190431fa731d79db6dd6345",
+      "authentication": {},
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"mutation($input: LoginInput!){\\n  login(input: $input){\\n    id\\n    name\\n    username\\n    email\\n  }\\n}\",\"variables\":{\"input\":{\"username\":\"professor\",\"password\":\"professor\"}}}"
+      },
+      "created": 1598282575983,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_e42fcfcf1f774442969e006ad4097e3c",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1598282592991,
+      "method": "POST",
+      "modified": 1598456592596,
+      "name": "LogIn as Professor",
+      "parameters": [],
+      "parentId": "fld_346efe731a3d4c9a9c5ab5eca4744b2d",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ api }}",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_346efe731a3d4c9a9c5ab5eca4744b2d",
+      "created": 1598282592791,
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1598282390559,
+      "modified": 1598285155739,
+      "name": "Login",
+      "parentId": "wrk_6d09bbafea0a4788afddc506ff7c4dd2",
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_86a59089cd054c5ca6dab15d30f7dd33",
+      "authentication": {},
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"mutation($input: LoginInput!){\\n  login(input: $input){\\n    id\\n    name\\n    username\\n    email\\n  }\\n}\",\"variables\":{\"input\":{\"username\":\"student\",\"password\":\"student\"}}}"
+      },
+      "created": 1598282567000,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_e42fcfcf1f774442969e006ad4097e3c",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1598282592941,
+      "method": "POST",
+      "modified": 1598455926694,
+      "name": "LogIn as Student1",
+      "parameters": [],
+      "parentId": "fld_346efe731a3d4c9a9c5ab5eca4744b2d",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ api }}",
+      "_type": "request"
+    },
+    {
+      "_id": "req_296d25c33f0f42b7beb9abd7f882b200",
+      "authentication": {},
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"mutation($input: LoginInput!){\\n  login(input: $input){\\n    id\\n    name\\n    username\\n    email\\n  }\\n}\",\"variables\":{\"input\":{\"username\":\"student2\",\"password\":\"student\"}}}"
+      },
+      "created": 1598282583819,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_e42fcfcf1f774442969e006ad4097e3c",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1598282592891,
+      "method": "POST",
+      "modified": 1598455924044,
+      "name": "Login as Student2",
+      "parameters": [],
+      "parentId": "fld_346efe731a3d4c9a9c5ab5eca4744b2d",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ api }}",
+      "_type": "request"
+    },
+    {
+      "_id": "req_c630343043894776a51f772d28c6f309",
+      "authentication": {},
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"mutation($input: LoginInput!){\\n  login(input: $input){\\n    id\\n    name\\n    username\\n    email\\n  }\\n}\",\"variables\":{\"input\":{\"username\":\"admin\",\"password\":\"admin\"}}}"
+      },
+      "created": 1598282408794,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_e42fcfcf1f774442969e006ad4097e3c",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1598282592841,
+      "method": "POST",
+      "modified": 1598455916975,
+      "name": "LogIn as Admin",
+      "parameters": [],
+      "parentId": "fld_346efe731a3d4c9a9c5ab5eca4744b2d",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ api }}",
+      "_type": "request"
+    },
+    {
+      "_id": "req_c403e67ddd7c48d18d566dfa58823349",
+      "authentication": {},
+      "body": {
+        "mimeType": "application/graphql",
+        "text": "{\"query\":\"mutation{\\n  logout\\n}\"}"
+      },
+      "created": 1598282762054,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_e42fcfcf1f774442969e006ad4097e3c",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1598282592791,
+      "method": "POST",
+      "modified": 1598454792644,
+      "name": "LogOut",
+      "parameters": [],
+      "parentId": "fld_346efe731a3d4c9a9c5ab5eca4744b2d",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ api }}",
+      "_type": "request"
+    },
+    {
+      "_id": "env_c098648dfef95e5babeb577cf0e0d9082496fc4e",
+      "color": null,
+      "created": 1598282360403,
+      "data": { "api": "localhost/gql" },
+      "dataPropertyOrder": { "&": ["api"] },
+      "isPrivate": false,
+      "metaSortKey": 1598282360403,
+      "modified": 1598282459436,
+      "name": "Base Environment",
+      "parentId": "wrk_6d09bbafea0a4788afddc506ff7c4dd2",
+      "_type": "environment"
+    },
+    {
+      "_id": "jar_c098648dfef95e5babeb577cf0e0d9082496fc4e",
+      "cookies": [
+        {
+          "creation": "2020-08-24T15:22:27.352Z",
+          "domain": "localhost",
+          "expires": "2020-09-25T15:32:04.000Z",
+          "hostOnly": true,
+          "httpOnly": true,
+          "id": "9225430120761235",
+          "key": "sessid",
+          "lastAccessed": "2020-08-26T15:32:04.866Z",
+          "path": "/",
+          "value": "s%3Ab1d70860-80c1-4c79-bca2-916dbb86ae46.MNJVcEEtayE%2Bz7hlvgOTihw2vDz52yP9w2sFDzKkOMk"
+        }
+      ],
+      "created": 1598282360405,
+      "modified": 1598455924866,
+      "name": "Default Jar",
+      "parentId": "wrk_6d09bbafea0a4788afddc506ff7c4dd2",
+      "_type": "cookie_jar"
+    },
+    {
+      "_id": "spc_7313bc24df1e411c83587739c42d60ab",
+      "contentType": "yaml",
+      "contents": "",
+      "created": 1598282360362,
+      "fileName": "Insomnia",
+      "modified": 1598282360362,
+      "parentId": "wrk_6d09bbafea0a4788afddc506ff7c4dd2",
+      "_type": "api_spec"
+    }
+  ]
+}
