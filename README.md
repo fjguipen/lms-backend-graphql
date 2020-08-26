@@ -50,7 +50,7 @@ Go to **_localhost/gql_** or open [**Insomnia**](#using-the-api).
 
 ### Subsequent deployment
 
-If we already called deploy:dev previosly, then we only need to take the container runing up:
+If we already called deploy:dev previously, then we only need to take the container runing up:
 
 With npm:
 
@@ -80,9 +80,9 @@ yarn dc:logs
 
 ## About the proyect
 
-This proyect is the backend for an API that fulfills the needs of a LMS. We have three different available users: adminers, professors and students, and the actions that they can take over the API are restricted by their roles.
+This proyect is the backend for an API that fullfills the needs of a LMS. We have three different available users: adminers, professors and students, and the actions that they can take over the API are restricted by their roles.
 
-The only pourpse of adminers is to create other users.
+The only pourpose of adminers is to create other users.
 
 Professors can manipulate all contents in the system, creating lessons with diferent contents along the different levels of difficulty. Professors also are the only ones with access to students personal and academic data like evaluations (quizzes, answers, marks...), accessed contents, etc.
 
