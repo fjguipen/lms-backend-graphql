@@ -1,3 +1,4 @@
+# Overrided by docker-compose.override.yml for development
 FROM node:12-alpine
 
 RUN mkdir  /dist
@@ -7,4 +8,4 @@ COPY knexfile.ts knexfile.ts
 COPY tsconfig.json tsconfig.json
 
 RUN npm install
-COPY /build /dist/build
+COPY /src /dist/src

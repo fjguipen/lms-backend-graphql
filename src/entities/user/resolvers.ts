@@ -5,7 +5,7 @@ import { UserModel } from './model';
 
 export default {
   Query: {
-    user: authorize(UserModel.get, [ROLES.ADMIN, ROLES.PROFESSOR]),
+    user: authorize(UserModel.get, [ROLES.PROFESSOR]),
   },
   User: {
     __resolveType: (source) => {

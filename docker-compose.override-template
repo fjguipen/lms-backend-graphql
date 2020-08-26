@@ -2,15 +2,16 @@ version: '3.7'
 
 services:
   api:
+    image: node:12-alpine
     container_name: z1_api
-    build:
-      context: .
     restart: 'no'
     expose:
       - 8000
     env_file:
       - .env
     working_dir: /dist/
+    volumes:
+      - .:/dist
     command: npm run dev
     networks:
       - default
