@@ -18,7 +18,6 @@ export async function handleUpdateFormattedText(
   content: ContentModel,
   input: UpdateContentInput
 ) {
-  console.log(input.text);
   if (!input.text) {
     throw new ApolloError('Invalid data: Missing formatted text');
   }
