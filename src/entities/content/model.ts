@@ -75,12 +75,12 @@ export class ContentModel extends Model implements Content {
       const { order_position: lastIndex } = (await ContentModel.query(trx)
         .where('lesson_id', input.lesson_id)
         .modify('sort', 'DESC')
-        .first()) || { order_position: 0 };
+        .first()) || { order_position: null };
 
       let graph = {
         type: input.type,
         lesson_id: input.lesson_id,
-        order_position: lastIndex + 1,
+        order_position: (lastIndex !== null && lastIndex + 1) || 0,
       };
 
       if (input.type === ContentModel.types.formattedText) {
@@ -143,14 +143,9 @@ export class ContentModel extends Model implements Content {
     { input }: MutationSetViewedContentArgs,
     { session }: ResolversContext
   ) {
-    const user = await UserModel.query().findById(session.user.id);
-    if (!user.rol.includes('std')) {
-      return false;
-    }
-
     try {
       await UserContentView.query().insert({
-        user_id: user.id,
+        user_id: session.user.id,
         content_id: input.content_id,
       });
 

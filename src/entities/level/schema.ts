@@ -2,7 +2,7 @@ import { gql } from 'apollo-server-core';
 
 export default gql`
   type Query {
-    level(id: Int): Level
+    level(id: Int!): Level
     levels: [Level!]
   }
 
@@ -10,6 +10,6 @@ export default gql`
     id: Int!
     title: String
     description: String
-    lessons: [Lesson!]
+    lessons: [Lesson]
   }
 `;

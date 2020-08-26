@@ -5,6 +5,7 @@ import {
   QueryUserArgs,
   User,
 } from '../../_generated/types';
+import { ResolversContext } from '../../types';
 
 export class UserModel extends Model implements BaseUser {
   id: number;
@@ -45,10 +46,15 @@ export class UserModel extends Model implements BaseUser {
     return user;
   }
 
+  // TODO: validations
   static async create(_, { input }: MutationCreateUserArgs): Promise<User> {
     const user = await UserModel.query().insert(input).returning('*');
 
     return user;
+  }
+
+  static async getCurrentUser(_, __, { session }: ResolversContext) {
+    return UserModel.query().findById(session.user.id);
   }
 }
 

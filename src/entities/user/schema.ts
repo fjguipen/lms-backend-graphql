@@ -3,13 +3,14 @@ import { gql } from 'apollo-server-core';
 export default gql`
   type Query {
     user(id: Int!): User
+    currentUser: CurrentUser
   }
 
   type Mutation {
-    login(input: LoginInput): CurrentUser
+    login(input: LoginInput!): CurrentUser
     logout: Boolean
-    createUser(input: CreateUserInput): User
-    createUser(input: UdateUserInput): User
+    createUser(input: CreateUserInput!): User
+    createUser(input: UdateUserInput!): User
   }
 
   interface User {

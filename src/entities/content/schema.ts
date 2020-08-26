@@ -2,15 +2,15 @@ import { gql } from 'apollo-server-core';
 
 export default gql`
   type Query {
-    content(id: Int): Content
+    content(id: Int!): Content
     contents(input: ContentsFilterInput): [Content]
   }
 
   type Mutation {
-    createContent(input: CreateContentInput): Content
-    updateContent(input: UpdateContentInput): Content
+    createContent(input: CreateContentInput!): Content
+    updateContent(input: UpdateContentInput!): Content
     deleteContent(ids: [Int!]!): [Int]
-    setViewedContent(input: SetViewContentInput): Boolean
+    setViewedContent(input: SetViewContentInput!): Boolean
   }
 
   type FormattedText implements Content {
@@ -58,6 +58,6 @@ export default gql`
   }
 
   input SetViewContentInput {
-    content_id: Int
+    content_id: Int!
   }
 `;

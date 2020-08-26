@@ -7,7 +7,7 @@ export default gql`
   }
 
   type Mutation {
-    evaluateQuizz(input: EvaluateQuizzInput): Evaluation
+    evaluateQuizz(input: EvaluateQuizzInput!): Evaluation
   }
 
   type Evaluation {
