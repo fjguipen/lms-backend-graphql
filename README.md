@@ -9,7 +9,7 @@
 
 ## Setup
 
-Deployment is based entirely on docker. We use docker to set up the instances for 3 different servcices:
+Deployment is based entirely on docker. We use docker to set up the instances for 3 different services:
 
 - Database (PostgresSQL)
 - Proxy (Nginx)
