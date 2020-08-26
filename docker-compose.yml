@@ -1,4 +1,5 @@
 version: "3.7"
+
 services:
   api:
     container_name: z1_api
@@ -7,12 +8,8 @@ services:
     restart: "no"
     expose: 
       - 8000
-    environment:
-      - SECRET_KEY=${SECRET_KEY}
-      - DB_NAME=${DB_NAME}
-      - DB_USER=${DB_USER}
-      - DB_PASSWORD=${DB_PASSWORD}
-      - DB_HOST=${DB_HOST}
+    env_file:
+      - .env
     working_dir: /dist/
     volumes:
       - ./src:/dist/src
@@ -53,3 +50,7 @@ services:
 volumes:
   db-data:
     name: z1-db-data
+
+networks:
+  default:
+    name: z1-default
