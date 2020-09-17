@@ -1,4 +1,4 @@
-# Z1 senior backend - Learning Management System
+# Learning Management System
 
 ## Table of contents
 
